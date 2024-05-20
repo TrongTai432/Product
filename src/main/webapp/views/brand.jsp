@@ -35,9 +35,10 @@
             <input class="search-brand" type="text" placeholder="Search..."/>
             <button type="submit" class="search-btn">Search</button>
         </div>
-        <div class="float-right"><a class="btn btn-success add-btn" id="addModal"><i class="fas fa-plus-square"></i> Add Brand</a></div>
+        <div class="float-right"><a class="btn btn-success add-btn" id="addModal">Add Brand</a></div>
+        <a href="/" id="logoutBtn" class="btn btn-danger">Logout</a>
     </div>
-    <table class="table table-bordered">
+    <table class="table table-bordered" id="brandInfoTable">
         <thead>
         <tr>
             <th>ID</th>
@@ -61,7 +62,50 @@
         </tbody>
     </table>
 </div>
+
+<div class="modal fade" id="brandInfoModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <form id="brandInfoForm" role="form" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Brand</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group d-none">
+                        <label>Brand ID</label>
+                        <input type="text" class="form-control" id="brandId" name="brandId" placeholder="Brand Id" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="brandName">Brand Name <span class="required-mask">(*)</span></label>
+                        <input type="text" class="form-control" id="brandName" name="brandName" placeholder="Brand name">
+                    </div>
+                    <div class="form-group">
+                        <label for="logo">Logo <span class="required-mask">(*)</span></label>
+                        <div class="preview-image-upload" id="logoImg">
+
+                        </div>
+                        <input type="file" class="form-control upload-image" name="logoFiles" accept="image/*" />
+                        <input type="hidden" class="old-img" id="logo" name="logo">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea name="description" id="description" cols="30" rows="3" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="saveBrandBtn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7p1hxvEb53It1cbYQw07KzxS/xFJ9e6NaFg" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </body>
 </html>
 
