@@ -11,10 +11,6 @@ import java.util.List;
 
 @Repository
 public interface BrandDAO extends JpaRepository<BrandEntity, Long> {
-    @Query("SELECT b FROM BrandEntity b ORDER BY b.brandId DESC")
-    List<BrandEntity> findAllOrderByBrandIdDesc();
-
-    List<BrandEntity> findAll();
 
     BrandEntity findByBrandId(Long brandId);
 

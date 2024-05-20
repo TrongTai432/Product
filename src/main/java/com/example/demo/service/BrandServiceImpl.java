@@ -19,9 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional
 public class BrandServiceImpl implements IBrandService {
-    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     BrandDAO brandDAO;
 
@@ -46,7 +44,7 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override
     public List<BrandEntity> getAll() {
-        return brandDAO.findAllOrderByBrandIdDesc();
+        return brandDAO.findAll();
     }
 
 

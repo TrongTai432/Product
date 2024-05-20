@@ -17,12 +17,10 @@ import java.util.List;
 @RequestMapping(value = { "/brand" })
 public class BrandController {
     @Autowired
-    private IBrandService brandService;
+    IBrandService brandService;
 
     @GetMapping
-    public String getAllBrands(Model model) {
-        List<BrandEntity> brands = brandService.getAll();
-        model.addAttribute("brands", brands);
+    public String initPage(Model model) {
         return "brand";
     }
 
