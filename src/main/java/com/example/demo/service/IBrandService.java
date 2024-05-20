@@ -2,11 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.entity.BrandEntity;
 import com.example.demo.model.ResponseDataModel;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 
 public interface IBrandService {
 
