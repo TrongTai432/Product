@@ -16,8 +16,10 @@ import java.util.List;
 public class IndexController {
     @RequestMapping(value = "/")
     public String home() {
-        return "product";
+        return "brand";
     }
+
+
 
 
 }

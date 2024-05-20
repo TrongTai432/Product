@@ -2,27 +2,26 @@ package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
-
+import javax.persistence.Id;
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "BRAND")
+@Table(name = "brand")
 public class BrandEntity {
-
     @Id
-    @Column(name = "BRAND_ID", nullable = false)
+    @Column(name = "brand_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long brandId;
 
-    @Column(name = "BRAND_NAME", length = 100, nullable = true)
+    @Column(name = "brand_name", length = 100, nullable = true)
     private String brandName;
 
-    @Column(name = "DESCRIPTION", nullable = true)
-    private String description;
-
-    @Column(name = "LOGO", nullable = true)
+    @Column(name = "logo", nullable = true)
     private String logo;
+
+    @Column(name = "description", nullable = true)
+    private String description;
 
     @JsonIgnore
     @OneToMany(mappedBy = "brandEntity", fetch = FetchType.LAZY)
