@@ -19,8 +19,9 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class BrandServiceImpl implements IBrandService {
-
+    @Autowired
     BrandDAO brandDAO;
 
     @Override

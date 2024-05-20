@@ -20,9 +20,11 @@ public class BrandController {
     IBrandService brandService;
 
     @GetMapping
-    public String initPage(Model model) {
+    public String getAllBrands(Model model){
+        List<BrandEntity> brands = brandService.getAll();
+        model.addAttribute("brands", brands);
         return "brand";
-    }
+ }
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDataModel> getBrandById(@PathVariable Long id) {
