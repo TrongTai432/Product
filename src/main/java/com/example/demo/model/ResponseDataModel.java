@@ -1,40 +1,40 @@
 package com.example.demo.model;
 
-import org.springframework.http.HttpStatus;
 
 public class ResponseDataModel {
-    private HttpStatus status;
-    private String message;
+    private int responseCode;
+    private String responseMsg;
     private Object data;
 
-    public ResponseDataModel() {}
+    public ResponseDataModel() {
 
-    public ResponseDataModel(HttpStatus status, String message) {
-        this.status = status;
-        this.message = message;
     }
 
-    public ResponseDataModel(HttpStatus status, String message, Object data) {
-        this.status = status;
-        this.message = message;
+    public ResponseDataModel(int responseCode, String responseMsg) {
+        this.responseCode = responseCode;
+        this.responseMsg = responseMsg;
+    }
+
+    public ResponseDataModel(int responseCode, String responseMsg, Object data) {
+        this.responseCode = responseCode;
+        this.responseMsg = responseMsg;
         this.data = data;
     }
 
-    // Getters and Setters
-    public HttpStatus getStatus() {
-        return status;
+    public int getResponseCode() {
+        return responseCode;
     }
 
-    public void setStatus(HttpStatus status) {
-        this.status = status;
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
 
-    public String getMessage() {
-        return message;
+    public String getResponseMsg() {
+        return responseMsg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setResponseMsg(String responseMsg) {
+        this.responseMsg = responseMsg;
     }
 
     public Object getData() {
@@ -44,4 +44,6 @@ public class ResponseDataModel {
     public void setData(Object data) {
         this.data = data;
     }
+
+
 }

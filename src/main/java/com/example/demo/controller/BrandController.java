@@ -23,45 +23,50 @@ public class BrandController {
         List<BrandEntity> brands = brandService.getAll();
         model.addAttribute("brands", brands);
         return "brand";
- }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseDataModel> getBrandById(@PathVariable Long id) {
-        ResponseDataModel response = brandService.findBrandByIdApi(id);
-        return new ResponseEntity<>(response, response.getStatus());
     }
 
-    @PostMapping
-    public ResponseEntity<ResponseDataModel> createBrand(@RequestBody BrandEntity brandEntity) {
-        ResponseDataModel response = brandService.addApi(brandEntity);
-        return new ResponseEntity<>(response, response.getStatus());
+    @GetMapping("/api/findAll/{pageNumber}")
+    @ResponseBody
+    public ResponseDataModel findAllWithPagerApi(@PathVariable("pageNumber") int pageNumber) {
+        return brandService.findAllWithPagerApi(pageNumber);
+    }
+    @GetMapping("/api/findAll")
+    @ResponseBody
+    public ResponseDataModel findBrandByIdApi(@RequestParam("id") Long brandId) {
+        return brandService.findBrandByIdApi(brandId);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ResponseDataModel> updateBrand(@PathVariable Long id, @RequestBody BrandEntity brandEntity) {
-        if (brandService.findByBrandId(id) == null) {
-            return new ResponseEntity<>(new ResponseDataModel(HttpStatus.NOT_FOUND, "Brand not found."), HttpStatus.NOT_FOUND);
+    @PostMapping(value="/api/add")
+    @ResponseBody
+    public ResponseDataModel addApi(@ModelAttribute BrandEntity brandEntity) {
+        return brandService.addApi(brandEntity);
+    }
+
+    @GetMapping("/api/getBrand")
+    public ResponseEntity<BrandEntity> getBrandById(@RequestParam Long id) {
+        BrandEntity brand = brandService.findByBrandId(id);
+        if (brand != null) {
+            return ResponseEntity.ok(brand);
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        brandEntity.setBrandId(id);
-        ResponseDataModel response = brandService.updateApi(brandEntity);
-        return new ResponseEntity<>(response, response.getStatus());
+    }
+    @PostMapping(value ="/api/update")
+    @ResponseBody
+    public ResponseDataModel updateApi(@ModelAttribute BrandEntity brandEntity) {
+        return brandService.updateApi(brandEntity);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDataModel> deleteBrand(@PathVariable Long id) {
-        ResponseDataModel response = brandService.deleteApi(id);
-        return new ResponseEntity<>(response, response.getStatus());
+    @DeleteMapping(value ="/api/delete/{brandId}")
+    @ResponseBody
+    public ResponseDataModel deleteApi(@PathVariable("brandId") Long brandId) {
+        return brandService.deleteApi(brandId);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<ResponseDataModel> searchBrandsByName(@RequestParam String name, @RequestParam int page) {
-        ResponseDataModel response = brandService.search(page, name);
-        return new ResponseEntity<>(response, response.getStatus());
-    }
-
-    @GetMapping("/paged")
-    public ResponseEntity<ResponseDataModel> getAllBrandsPaged(@RequestParam int page) {
-        ResponseDataModel response = brandService.findAllWithPagerApi(page);
-        return new ResponseEntity<>(response, response.getStatus());
+    @GetMapping(value = { "/api/search/{keyword}/{pageNumber}" })
+    @ResponseBody
+    public ResponseDataModel searchApi(@PathVariable("keyword") String keyword,
+                                       @PathVariable("pageNumber") int pageNumber) {
+        return brandService.search(pageNumber, keyword);
     }
 }
