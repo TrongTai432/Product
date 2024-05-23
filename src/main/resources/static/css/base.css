@@ -1,0 +1,20 @@
+.pagination a {
+    margin: 0 4px; /* Thêm khoảng cách giữa các liên kết */
+    padding: 6px 12px; /* Thêm đệm để liên kết dễ bấm hơn */
+    text-decoration: none; /* Loại bỏ gạch chân */
+    color: #007bff; /* Màu chữ */
+    background-color: #f8f9fa; /* Màu nền */
+    border: 1px solid #dee2e6; /* Viền */
+    border-radius: 5px; /* Bo tròn góc */
+}
+
+.pagination a.active {
+    color: #fff; /* Màu chữ khi hoạt động */
+    background-color: #007bff; /* Màu nền khi hoạt động */
+    border-color: #007bff; /* Màu viền khi hoạt động */
+}
+
+.pagination a:hover {
+    background-color: #e2e6ea; /* Màu nền khi hover */
+    border-color: #dae0e5; /* Màu viền khi hover */
+}

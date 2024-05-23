@@ -12,7 +12,7 @@ public interface IBrandService {
     BrandEntity update(BrandEntity brandEntity);
 
     ResponseDataModel delete(Long brandId);
-
+    int getTotalPageCount(int pageSize);
     List<BrandEntity> getAll();
 
     BrandEntity findByBrandId(Long brandId);

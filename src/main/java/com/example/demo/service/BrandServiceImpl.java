@@ -150,7 +150,10 @@ public class BrandServiceImpl implements IBrandService {
         }
         return new ResponseDataModel(responseCode, responseMsg, brandEntity);
     }
-
+    public int getTotalPageCount(int pageSize) {
+        long recordCount = brandDAO.count(); // Giả sử phương thức count() trả về tổng số bản ghi
+        return (int) Math.ceil((double) recordCount / pageSize);
+    }
     @Override
     public ResponseDataModel updateApi(BrandEntity brandEntity) {
         int responseCode = Constants.RESULT_CD_FAIL;

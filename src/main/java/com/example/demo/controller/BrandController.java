@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.BrandEntity;
+import com.example.demo.model.PagerModel;
 import com.example.demo.model.ResponseDataModel;
 import com.example.demo.service.IBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,13 @@ public class BrandController {
     IBrandService brandService;
 
     @GetMapping
-    public String getAllBrands(Model model){
+    public String getAllBrands(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
+        int totalPageCount = brandService.getTotalPageCount(page); // Giả sử phương thức này trả về tổng số trang
+        int pageSize = 5; // Số lượng bản ghi mỗi trang
         List<BrandEntity> brands = brandService.getAll();
         model.addAttribute("brands", brands);
+        PagerModel pager = new PagerModel(page, totalPageCount);
+        model.addAttribute("pager", pager);
         return "brand";
     }
 

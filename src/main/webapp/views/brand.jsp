@@ -1,11 +1,10 @@
 
 <!DOCTYPE html>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <html>
 <head>
-    <meta charset="UTF-8">
     <jsp:include page="../common/header.jsp" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Brand List</title>
@@ -25,6 +24,28 @@
             background-color: #f2f2f2;
         }
     </style>
+    <style>
+        .pagination a {
+            margin: 0 4px;
+            padding: 6px 12px;
+            text-decoration: none;
+            color: #007bff;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+
+        .pagination a.active {
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .pagination a:hover {
+            background-color: #e2e6ea;
+            border-color: #dae0e5;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -42,8 +63,9 @@
         </div>
     </div>
     <table class="table table-bordered" id="brandInfoTable">
-        <h2>Brand List</h2>
+
         <thead>
+        <h2>Brand List</h2>
         <tr>
             <th>Brand ID</th>
             <th>Name</th>
@@ -63,12 +85,34 @@
                 <td>${brand.description}</td>
                 <td>
                     <button class="btn btn-primary edit-btn" data-id="${brand.brandId}" >Edit</button>
-                    <button class="btn btn-danger delete-btn" data-id="${brand.brandId}">Delete</button>
+                    <button class="btn btn-danger delete-btn" data-id="${brand.brandId}" data-name="${brand.brandName}">Delete</button>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+    <div class="pagination">
+        <c:if test="${pager.firstPage != 0}">
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page=${pager.previousPage}">Previous</a>
+        </c:if>
+
+        <c:forEach var="page" items="${pager.pageNumberList}">
+            <c:choose>
+                <c:when test="${page == pager.currentPage}">
+                    <a href="?page=${page}" class="active">${page}</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="?page=${page}">${page}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+
+        <c:if test="${pager.lastPage != 0}">
+            <a href="?page=${pager.nextPage}">Next</a>
+            <a href="?page=${pager.lastPage}">Last &raquo;</a>
+        </c:if>
+    </div>
 </div>
 
 <!-- add brand Modal -->
@@ -108,6 +152,9 @@
         </div>
     </div>
 </div>
+
+
+
 
 <!-- Edit Brand Modal -->
 <div class="modal fade" id="editBrandModal" tabindex="-1" role="dialog" aria-labelledby="editBrandModalLabel" aria-hidden="true">
@@ -156,7 +203,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Do you want to delete <b class="brand-name"></b>?</p>
+                <p>Do you want to delete <b id="deletedBrandName"></b>?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -166,11 +213,14 @@
     </div>
 </div>
 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script src="<c:url value='/js/brand.js'/>"></script>
+
+<script src="${pageContext.request.contextPath}/js/brand.js"></script>
+<%--<script src="${pageContext.request.contextPath}/css/base.css"></script> --%>
 </body>
 </html>
 
