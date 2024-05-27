@@ -69,8 +69,7 @@ $(document).ready(function () {
                     maxlength: 50
                 },
                 logoFiles: {
-                    required: isAddAction,
-                    accept: "image/*"
+                    required: isAddAction
                 }
             },
             messages: {
@@ -87,15 +86,13 @@ $(document).ready(function () {
             submitHandler: function(form) {
                 $.ajax({
                     url: '/brand/api/add',
+                    enctype: 'multipart/form-data',
                     type: 'POST',
                     data: formData,
                     contentType: false,
                     processData: false,
-                    success: function(response) {
+                    success: function(responseData) {
                         alert(response.responseMsg);
-                        if (response.responseCode === Constants.RESULT_CD_SUCCESS) {
-                            location.reload();
-                        }
                     },
                     error: function(error) {
                         alert('Error occurred while adding brand');

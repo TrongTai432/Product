@@ -31,7 +31,7 @@ public class BrandServiceImpl implements IBrandService {
     private String brandLogoFolderPath;
 
     @Autowired
-    private BrandDAO brandDAO;
+    BrandDAO brandDAO;
 
     BrandEntity brandEntity = new BrandEntity();
     @Override

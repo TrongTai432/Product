@@ -68,7 +68,7 @@
                 <td>${brand.brandId}</td>
                 <td>${brand.brandName}</td>
                 <td>
-                    <img src="images/${brand.logo}" alt="${brand.brandName}" width="50" height="50" name="logoFiles" >
+                    <img src="/images/${brand.logo}" alt="${brand.brandName}" width="50" height="50" name="logoFiles" >
                 </td>
                 <td>${brand.description}</td>
                 <td>
@@ -123,9 +123,6 @@
                     </div>
                     <div class="form-group">
                         <label for="logo">Logo <span class="required-mask">(*)</span></label>
-                        <div class="preview-image-upload" id="logoImg">
-
-                        </div>
                         <input type="file" class="form-control upload-image" name="logoFiles" accept=".jpg,.jpeg,.png,.gif" required/>
                         <input type="hidden" class="old-img" id="logo" name="logo">
                     </div>
