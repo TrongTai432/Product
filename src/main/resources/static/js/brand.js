@@ -53,21 +53,24 @@ $(document).ready(function () {
         });
     });
 
-    $('#saveBrandBtn').on('click', function (event) {
+    $('#saveBrandBtn').on('click', function(event) {
         event.preventDefault();
+
         var $brandInfoForm = $('#brandInfoForm');
         var formData = new FormData($brandInfoForm[0]);
-        var brandId = formData.get("#saveBrandBtn");
-        var isAddAction = brandId == undefined || brandId== "";
-        $('#brandInfoForm').validate({
+        var brandId = formData.get("brandId");
+        var isAddAction = !brandId;
+
+        $brandInfoForm.validate({
             ignore: [],
             rules: {
                 brandName: {
                     required: true,
-                    maxlength : 50
+                    maxlength: 50
                 },
                 logoFiles: {
                     required: isAddAction,
+                    accept: "image/*"
                 }
             },
             messages: {
@@ -76,39 +79,34 @@ $(document).ready(function () {
                     maxlength: "The Brand Name must be less than 50 characters",
                 },
                 logoFiles: {
-                    required: "Please upload Brand Logo",
+                    required: "Please upload Brand Logo"
                 }
             },
             errorElement: "div",
-            errorClass: "error-message-invalid"
+            errorClass: "error-message-invalid",
+            submitHandler: function(form) {
+                $.ajax({
+                    url: '/brand/api/add',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        alert(response.responseMsg);
+                        if (response.responseCode === Constants.RESULT_CD_SUCCESS) {
+                            location.reload();
+                        }
+                    },
+                    error: function(error) {
+                        alert('Error occurred while adding brand');
+                    }
+                });
+            }
         });
 
-        if ($brandInfoForm.valid()) {
-            // POST data to server-side by AJAX
-            $.ajax({
-                url: "/brand/api/add",
-                type: 'POST',
-                enctype: 'multipart/form-data',
-                processData: false,
-                contentType: false,
-                cache: false,
-                timeout: 10000,
-                data: formData,
-                success: function(responseData) {
-                    $('#addModal').modal('hide');
-                    showNotification(responseData.responseCode == 100, responseData.responseMsg);
-                    if (responseData.responseCode == 100) {
-                        window.location.reload(); // Reload the page after successful add
-                    } else {
-                        alert('Failed to add brand. Please try again.');
-                    }
-                },
-                error: function () {
-                    alert('Failed to add brand. Please try again.');
-                }
-            });
-        }
+        $brandInfoForm.submit();
     });
+
 });
 
 

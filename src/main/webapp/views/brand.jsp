@@ -6,8 +6,7 @@
 <html>
 <head>
     <jsp:include page="../common/header.jsp" />
-
-    <script src="${pageContext.request.contextPath}/css/brand.css"></script>
+    <link src="${pageContext.request.contextPath}/css/brand.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -108,7 +107,7 @@
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form id="brandInfoForm" role="form" enctype="multipart/form-data">
+            <form id="brandInfoForm" action="/brand/api/add" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Add Brand</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -120,12 +119,14 @@
                     </div>
                     <div class="form-group">
                         <label for="brandName">Brand Name <span class="required-mask">(*)</span></label>
-                        <input type="text" class="form-control" id="brandName" name="brandName" placeholder="Brand name">
+                        <input type="text" class="form-control" id="brandName" name="brandName" placeholder="Brand name" required>
                     </div>
                     <div class="form-group">
                         <label for="logo">Logo <span class="required-mask">(*)</span></label>
-                        <div class="preview-image-upload" id="logoImg"></div>
-                        <input type="file" class="form-control upload-image" name="logoFiles" accept="image/*" />
+                        <div class="preview-image-upload" id="logoImg">
+
+                        </div>
+                        <input type="file" class="form-control upload-image" name="logoFiles" accept=".jpg,.jpeg,.png,.gif" required/>
                         <input type="hidden" class="old-img" id="logo" name="logo">
                     </div>
                     <div class="form-group">
@@ -135,12 +136,13 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveBrandBtn">Save</button>
+                    <button type="submit" class="btn btn-primary" id="saveBrandBtn">Save</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 
 <!-- Edit Brand Modal -->
 <div class="modal fade" id="editBrandModal" tabindex="-1" role="dialog" aria-labelledby="editBrandModalLabel" aria-hidden="true">
@@ -198,6 +200,8 @@
         </div>
     </div>
 </div>
+
+
 <script src="${pageContext.request.contextPath}/js/brand.js"></script>
 </body>
 </html>

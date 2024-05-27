@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,8 +31,9 @@ public class BrandServiceImpl implements IBrandService {
     private String brandLogoFolderPath;
 
     @Autowired
-    BrandDAO brandDAO;
+    private BrandDAO brandDAO;
 
+    BrandEntity brandEntity = new BrandEntity();
     @Override
     public BrandEntity add(BrandEntity brandEntity) {
         try {
@@ -89,6 +91,17 @@ public class BrandServiceImpl implements IBrandService {
         return responseMap;
     }
 
+    public boolean isValidImageFile(MultipartFile file) {
+        String[] validExtensions = {"jpg", "jpeg", "png", "gif"};
+        String fileName = file.getOriginalFilename();
+        if (fileName == null) {
+            return false;
+        }
+        String fileExtension = fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase();
+        boolean isValid = Arrays.asList(validExtensions).contains(fileExtension);
+        System.out.println("File Name: " + fileName + ", Extension: " + fileExtension + ", Is Valid: " + isValid);
+        return isValid;
+    }
     @Override
     public ResponseDataModel addApi(BrandEntity brandEntity) {
         int responseCode = Constants.RESULT_CD_FAIL;
@@ -99,8 +112,11 @@ public class BrandServiceImpl implements IBrandService {
                 responseCode = Constants.RESULT_CD_DUPL;
             } else {
                 MultipartFile[] logoFiles = brandEntity.getLogoFiles();
-                if (logoFiles != null && logoFiles[0].getSize() > 0) {
-
+                if (logoFiles != null && logoFiles.length > 0 && logoFiles[0].getSize() > 0) {
+                    if (!isValidImageFile(logoFiles[0])) {
+                        responseMsg = "Please upload a valid image file (jpg, jpeg, png, gif)";
+                        return new ResponseDataModel(responseCode, responseMsg);
+                    }
                     String imagePath = FileHelper.addNewFile(brandLogoFolderPath, logoFiles);
                     brandEntity.setLogo(imagePath);
                 }
@@ -110,7 +126,10 @@ public class BrandServiceImpl implements IBrandService {
             }
         } catch (IOException e) {
             responseMsg = "Error when adding brand";
-
+            e.printStackTrace();
+        } catch (Exception e) {
+            responseMsg = "Unexpected error occurred";
+            e.printStackTrace();
         }
         return new ResponseDataModel(responseCode, responseMsg);
     }

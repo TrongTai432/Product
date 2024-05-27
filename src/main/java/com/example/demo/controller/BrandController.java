@@ -1,16 +1,15 @@
 package com.example.demo.controller;
 
+import com.example.demo.constant.Constants;
 import com.example.demo.entity.BrandEntity;
 import com.example.demo.model.PagerModel;
 import com.example.demo.model.ResponseDataModel;
 import com.example.demo.service.IBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -41,11 +40,12 @@ public class BrandController {
         return brandService.findBrandByIdApi(brandId);
     }
 
-    @PostMapping(value="/api/add")
+    @PostMapping(value = "/api/add")
     @ResponseBody
     public ResponseDataModel addApi(@ModelAttribute BrandEntity brandEntity) {
         return brandService.addApi(brandEntity);
     }
+
 
     @GetMapping("/api/getBrand")
     public ResponseEntity<BrandEntity> getBrandById(@RequestParam Long id) {
