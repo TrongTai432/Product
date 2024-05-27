@@ -86,12 +86,11 @@ $(document).ready(function () {
             submitHandler: function(form) {
                 $.ajax({
                     url: '/brand/api/add',
-                    enctype: 'multipart/form-data',
                     type: 'POST',
                     data: formData,
                     contentType: false,
                     processData: false,
-                    success: function(responseData) {
+                    success: function(response) {
                         alert(response.responseMsg);
                     },
                     error: function(error) {
