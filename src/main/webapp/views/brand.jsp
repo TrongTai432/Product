@@ -6,24 +6,14 @@
 <html>
 <head>
     <jsp:include page="../common/header.jsp" />
+
+    <script src="${pageContext.request.contextPath}/css/brand.css"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Brand List</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 15px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
     <style>
         .pagination a {
             margin: 0 4px;
@@ -63,7 +53,6 @@
         </div>
     </div>
     <table class="table table-bordered" id="brandInfoTable">
-
         <thead>
         <h2>Brand List</h2>
         <tr>
@@ -153,9 +142,6 @@
     </div>
 </div>
 
-
-
-
 <!-- Edit Brand Modal -->
 <div class="modal fade" id="editBrandModal" tabindex="-1" role="dialog" aria-labelledby="editBrandModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -212,15 +198,7 @@
         </div>
     </div>
 </div>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
 <script src="${pageContext.request.contextPath}/js/brand.js"></script>
-<%--<script src="${pageContext.request.contextPath}/css/base.css"></script> --%>
 </body>
 </html>
 

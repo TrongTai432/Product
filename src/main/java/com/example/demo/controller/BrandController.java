@@ -21,8 +21,8 @@ public class BrandController {
 
     @GetMapping
     public String getAllBrands(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
-        int totalPageCount = brandService.getTotalPageCount(page); // Giả sử phương thức này trả về tổng số trang
-        int pageSize = 5; // Số lượng bản ghi mỗi trang
+        int totalPageCount = brandService.getTotalPageCount(page); 
+        int pageSize = 5;
         List<BrandEntity> brands = brandService.getAll();
         model.addAttribute("brands", brands);
         PagerModel pager = new PagerModel(page, totalPageCount);

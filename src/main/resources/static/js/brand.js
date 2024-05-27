@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+
     // Display modal to add new brand
     $('#addBrandBtn').click(function () {
         $('#brandId').val('');
@@ -56,9 +57,9 @@ $(document).ready(function () {
         event.preventDefault();
         var $brandInfoForm = $('#brandInfoForm');
         var formData = new FormData($brandInfoForm[0]);
-        var brandId = formData.get("brandId");
-        var isAddAction = brandId == undefined || brandId == "";
-        $brandInfoForm.validate({
+        var brandId = formData.get("#saveBrandBtn");
+        var isAddAction = brandId == undefined || brandId== "";
+        $('#brandInfoForm').validate({
             ignore: [],
             rules: {
                 brandName: {
@@ -94,12 +95,16 @@ $(document).ready(function () {
                 timeout: 10000,
                 data: formData,
                 success: function(responseData) {
+                    $('#addModal').modal('hide');
+                    showNotification(responseData.responseCode == 100, responseData.responseMsg);
                     if (responseData.responseCode == 100) {
-                        $('#addModal').modal('hide');
-                        showNotification(true, responseData.responseMsg);
+                        window.location.reload(); // Reload the page after successful add
                     } else {
-                        showMsgOnField($brandInfoForm.find("#brandName"), responseData.responseMsg);
+                        alert('Failed to add brand. Please try again.');
                     }
+                },
+                error: function () {
+                    alert('Failed to add brand. Please try again.');
                 }
             });
         }

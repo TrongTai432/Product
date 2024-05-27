@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductDAO extends JpaRepository<ProductEntity, Long>, JpaSpecificationExecutor<ProductEntity> {
+public interface ProductDAO extends JpaRepository<ProductEntity, Long> {
     ProductEntity findByProductName(String productName);
 
     ProductEntity findByProductId(Long productId);

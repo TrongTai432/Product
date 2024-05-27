@@ -1,20 +1,20 @@
 .pagination a {
-    margin: 0 4px; /* Thêm khoảng cách giữa các liên kết */
-    padding: 6px 12px; /* Thêm đệm để liên kết dễ bấm hơn */
-    text-decoration: none; /* Loại bỏ gạch chân */
-    color: #007bff; /* Màu chữ */
-    background-color: #f8f9fa; /* Màu nền */
-    border: 1px solid #dee2e6; /* Viền */
-    border-radius: 5px; /* Bo tròn góc */
+    margin: 0 4px;
+    padding: 6px 12px;
+    text-decoration: none;
+    color: #007bff;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
 }
 
 .pagination a.active {
-    color: #fff; /* Màu chữ khi hoạt động */
-    background-color: #007bff; /* Màu nền khi hoạt động */
-    border-color: #007bff; /* Màu viền khi hoạt động */
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
 }
 
 .pagination a:hover {
-    background-color: #e2e6ea; /* Màu nền khi hover */
-    border-color: #dae0e5; /* Màu viền khi hover */
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
 }
