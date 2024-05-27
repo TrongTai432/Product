@@ -1,6 +1,14 @@
 
 $(document).ready(function () {
 
+    // search
+    $('.search-btn').on('click', function() {
+        var keyword = $('.search-brand').val().toLowerCase();
+        var pagerNumber = $(this).attr("data-index");
+        findBrandByBrandName(keyword,1);
+
+    });
+
     // Display modal to add new brand
     $('#addBrandBtn').click(function () {
         $('#brandId').val('');
@@ -11,56 +19,14 @@ $(document).ready(function () {
         $('#addModal').modal('show');
     });
 
-    // Display modal to edit brand
-    $('.edit-btn').click(function () {
-        var brandId = $(this).data('id');
-        $.ajax({
-            url: '/brand/api/getBrand',
-            type: 'GET',
-            data: { id: brandId },
-            success: function(response) {
-                $('#editBrandId').val(response.brandId);
-                $('#editBrandName').val(response.brandName);
-                $('#editDescription').val(response.description);
-                $('#editBrandModal').modal('show');
-            }
-        });
-    });
-
-    $("#brandInfoTable").on('click', '.delete-btn', function() {
-        var brandName = $(this).data("name");
-        $("#deletedBrandName").text(brandName);
-        $("#deleteSubmitBtn").attr("data-id", $(this).data("id"));
-        $('#confirmDeleteModal').modal('show');
-    });
-
-    // Submit delete brand
-    $("#deleteSubmitBtn").on('click' , function() {
-        $.ajax({
-            url : "/brand/api/delete/" + $(this).attr("data-id"),
-            type : 'DELETE',
-            dataType : 'json',
-            contentType : 'application/json',
-            success : function(responseData) {
-                $('#confirmDeleteModal').modal('hide');
-                showNotification(responseData.responseCode == 100, responseData.responseMsg);
-                if (responseData.responseCode == 100) {
-                    window.location.reload();
-                } else {
-                    alert('Failed to delete brand. Please try again.');
-                }
-            }
-        });
-    });
-
+    //save
     $('#saveBrandBtn').on('click', function(event) {
         event.preventDefault();
-
         var $brandInfoForm = $('#brandInfoForm');
         var formData = new FormData($brandInfoForm[0]);
         var brandId = formData.get("brandId");
-        var isAddAction = !brandId;
-
+        //var isAddAction = !brandId;
+        var isAddAction = brandId == undefined || brandId == "";
         $brandInfoForm.validate({
             ignore: [],
             rules: {
@@ -82,30 +48,145 @@ $(document).ready(function () {
                 }
             },
             errorElement: "div",
-            errorClass: "error-message-invalid",
-            submitHandler: function(form) {
-                $.ajax({
-                    url: '/brand/api/add',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function(response) {
-                        alert(response.responseMsg);
-                    },
-                    error: function(error) {
-                        alert('Error occurred while adding brand');
-                    }
-                });
-            }
+            errorClass: "error-message-invalid"
         });
 
-        $brandInfoForm.submit();
+        if ($brandInfoForm.valid()) {
+            // POST data to server-side by AJAX
+            $.ajax({
+                url: "/brand/api/" + (isAddAction ? "add" : "update"),
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 10000,
+                data: formData,
+                success: function(responseData) {
+                    if (responseData.responseCode == 100) {
+                        $('#addModal').modal('hide');
+                        showNotification(true, responseData.responseMsg);
+                    } else {
+                        showMsgOnField($brandInfoForm.find("#brandName"), responseData.responseMsg);
+                    }
+                }
+            });
+        }
     });
 
+    $("#brandInfoTable").on('click', '.delete-btn', function() {
+        var brandName = $(this).data("name");
+        $("#deletedBrandName").text(brandName);
+        $("#deleteSubmitBtn").attr("data-id", $(this).data("id"));
+        $('#confirmDeleteModal').modal('show');
+    });
+
+    // Submit delete brand
+    $("#deleteSubmitBtn").on('click' , function() {
+        $.ajax({
+            url : "/brand/api/delete/" + $(this).attr("data-id"),
+            type : 'DELETE',
+            dataType : 'json',
+            contentType : 'application/json',
+            success : function(responseData) {
+                $('#confirmDeleteModal').modal('hide');
+                showNotification(responseData.responseCode == 100, responseData.responseMsg);
+            }
+        });
+    });
+
+    // Display modal to edit brand
+    $('.edit-btn').click(function () {
+        var brandId = $(this).data('id');
+        $.ajax({
+            url: '/brand/api/getBrand',
+            type: 'GET',
+            data: { id: brandId },
+            success: function(response) {
+                $('#editBrandId').val(response.brandId);
+                $('#editBrandName').val(response.brandName);
+                $('#editDescription').val(response.description);
+                $('#editBrandModal').modal('show');
+            }
+        });
+    });
 });
 
 
+function findBrands(pagerNumber) {
+    $.ajax({
+        url : "/brand/api/findAll/" +pagerNumber,
+        type : 'GET',
+        dataType : 'json',
+        contentType : "application/json",
+        success : function(responseData) {
+            if(responseData.responseCode == 100){
+                renderBrandsTable(responseData.data.brandsList);
+                renderPagination(responseData.data.paginationInfo);
+                totalItem(responseData.data.totalItem);
+            }
+        }
+    });
+}
+
+function findBrandByBrandName(keyword,pageNumber) {
+    $.ajax({
+        url : "/brand/api/search/" + keyword+"/"+pageNumber,
+        type : 'Get',
+        dataType : 'json',
+        contentType : "application/json",
+        success : function(responseData) {
+            if(responseData.responseCode == 100){
+                renderBrandsTable(responseData.data.brandsList);
+                renderPagination(responseData.data.paginationInfo);
+                if(responseData.data.paginationInfo.pageNumberList.length < 2){
+                    $('.pagination').addClass("d-none");
+                }else{
+                    $('.pagination').removeClass("d-none")
+                }
+                totalItem(responseData.data.totalItem);
+            }
+        }
+
+    });
+}
+
+function totalItem(item) {
+    $(".total").empty();
+    $(".total").append(item);
+}
+
+
+function renderBrandsTable(brandList) {
+    var rowHTML = "";
+    $("#brandInfoTable tbody").empty();
+    $.each(brandList, function(key, value) {
+        rowHTML = "<tr>"
+            +		"<td>" + value.brandId + "</td>"
+            + 		"<td>" + value.brandName +"</td>"
+            +		"<td class='text-center'><a href='" + value.logo + "' data-toggle='lightbox' data-max-width='1000'><img class='img-fluid' src='" + value.logo + "'></td>"
+            +		"<td>" + value.description + "</td>"
+            +		"<td class = 'action-btns'>"
+            +			"<a class='edit-btn' data-id='" + value.brandId +"'><i class='fas fa-edit'></i></a> | <a class='delete-btn' data-name='" + value.brandName + "' data-id='" + value.brandId + "'><i class='fas fa-trash-alt'></i></a>"
+            +		"</td>"
+        "</tr>";
+        $("#brandInfoTable tbody").append(rowHTML);
+    });
+}
+function renderPagination(paginationInfo) {
+    var paginationInnerHtml = "";
+    if(paginationInfo.pageNumberList.length > 0){
+        $("ul.pagination").empty();
+        paginationInnerHtml += '<li class="page-item"><a class="page-link' + (paginationInfo.firstPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ paginationInfo.firstPage + '">Firts Page</a></li>'
+        paginationInnerHtml += '<li class="page-item"><a class="page-link' + (paginationInfo.previousPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ paginationInfo.previousPage + '"> < </a></li>'
+        $.each(paginationInfo.pageNumberList, function(key, value) {
+            paginationInnerHtml += '<li class="page-item"><a class="page-link '+ (value == paginationInfo.currentPage ? 'active' : '') +'" href="javascript:void(0)" data-index="' + value +'">' + value + '</a></li>';
+        });
+        paginationInnerHtml += '<li class="page-item"><a class="page-link ' + (paginationInfo.nextPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ paginationInfo.nextPage + '"> > </a></li>'
+        paginationInnerHtml += '<li class="page-item"><a class="page-link ' + (paginationInfo.lastPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ paginationInfo.lastPage + '">Last Page</a></li>'
+        $("ul.pagination").append(paginationInnerHtml);
+    }
+}
 
 
 

@@ -68,7 +68,7 @@
                 <td>${brand.brandId}</td>
                 <td>${brand.brandName}</td>
                 <td>
-                    <img src="/images/${brand.logo}" alt="${brand.brandName}" width="50" height="50" name="logoFiles" >
+                    <img src="${brand.logo}" alt="${brand.brandName}" width="50" height="50" name="logoFiles" >
                 </td>
                 <td>${brand.description}</td>
                 <td>
@@ -198,8 +198,8 @@
     </div>
 </div>
 
-
-<script src="${pageContext.request.contextPath}/js/brand.js"></script>
+<jsp:include page="../common/footer.jsp" />
+<script src="/js/brand.js"></script>
 </body>
 </html>
 

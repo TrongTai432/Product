@@ -27,7 +27,7 @@ import java.util.Map;
 @Service
 @Transactional
 public class BrandServiceImpl implements IBrandService {
-    @Value("static/images/")
+    @Value("${parent.folder.images.brand}")
     private String brandLogoFolderPath;
 
     @Autowired
