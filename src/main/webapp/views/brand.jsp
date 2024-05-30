@@ -8,6 +8,7 @@
     <jsp:include page="../common/header.jsp" />
     <link rel="stylesheet" href="<c:url value='/css/brand.css'/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap-notify.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -93,26 +94,7 @@
         </tbody>
     </table>
     <div class="pagination">
-<%--        <c:if test="${pager.firstPage != 0}">--%>
-<%--            <a href="?page=1">&laquo; First</a>--%>
-<%--            <a href="?page=${pager.previousPage}">Previous</a>--%>
-<%--        </c:if>--%>
 
-<%--        <c:forEach var="page" items="${pager.pageNumberList}">--%>
-<%--            <c:choose>--%>
-<%--                <c:when test="${page == pager.currentPage}">--%>
-<%--                    <a href="?page=${page}" class="active">${page}</a>--%>
-<%--                </c:when>--%>
-<%--                <c:otherwise>--%>
-<%--                    <a href="?page=${page}">${page}</a>--%>
-<%--                </c:otherwise>--%>
-<%--            </c:choose>--%>
-<%--        </c:forEach>--%>
-
-<%--        <c:if test="${pager.lastPage != 0}">--%>
-<%--            <a href="?page=${pager.nextPage}">Next</a>--%>
-<%--            <a href="?page=${pager.lastPage}">Last &raquo;</a>--%>
-<%--        </c:if>--%>
     </div>
     </div>
 
@@ -158,7 +140,7 @@
 <div class="modal fade" id="editBrandModal" tabindex="-1" role="dialog" aria-labelledby="editBrandModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form id="editBrandForm">
+            <form id="editBrandForm" role="form" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editBrandModalLabel">Edit Brand</h5>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
@@ -183,7 +165,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary" id="updateBrandBtn">Save Changes</button>
                 </div>
             </form>
         </div>

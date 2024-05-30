@@ -34,9 +34,10 @@ $(document).ready(function () {
             }
         }
     });
-
+    var $brandInfoForm = $('#brandInfoForm');
     // Display modal to add new brand
     $('#addBrandBtn').click(function () {
+        resetForm($brandInfoForm);
         $('#brandId').val('');
         $('#brandName').val('');
         $('#logo').val('');
@@ -80,7 +81,7 @@ $(document).ready(function () {
         if ($brandInfoForm.valid()) {
             // POST data to server-side by AJAX
             $.ajax({
-                url: "/brand/api/" + (isAddAction ? "add" : "update"),
+                url: "/brand/api/add",
                 type: 'POST',
                 enctype: 'multipart/form-data',
                 processData: false,
@@ -91,6 +92,7 @@ $(document).ready(function () {
                 success: function(responseData) {
                     if (responseData.responseCode == 100) {
                         $('#addModal').modal('hide');
+                        findBrands(1);
                         showNotification(true, responseData.responseMsg);
                     } else {
                         showMsgOnField($brandInfoForm.find("#brandName"), responseData.responseMsg);
@@ -119,9 +121,11 @@ $(document).ready(function () {
             success : function(responseData) {
                 $('#confirmDeleteModal').modal('hide');
                 showNotification(responseData.responseCode == 100, responseData.responseMsg);
+                findBrands(1);
             }
         });
     });
+
 
     // Display modal to edit brand
     $("#brandInfoTable").on('click', '.edit-btn', function() {
@@ -138,7 +142,69 @@ $(document).ready(function () {
             }
         });
     });
+
+
+// Submit update brand
+    $('#updateBrandBtn').on('click', function (event) {
+        var $editBrandForm = $('#editBrandForm');
+        event.preventDefault();
+        var formData = new FormData($editBrandForm[0]);
+        var brandId = formData.get("brandId");
+        var isAddAction = brandId == undefined || brandId == "";
+        $editBrandForm.validate({
+            ignore: [],
+            rules: {
+                brandName: {
+                    required: true,
+                    maxlength : 50
+                },
+                logoFiles: {
+                    required: isAddAction,
+                }
+            },
+            messages: {
+                brandName: {
+                    required: "Please input Brand Name",
+                    maxlength: "The Brand Name must be less than 50 characters",
+                },
+                logoFiles: {
+                    required: "Please upload Brand Logo",
+                }
+            },
+            errorElement: "div",
+            errorClass: "error-message-invalid"
+        });
+
+        if ($editBrandForm.valid()) {
+            // POST data to server-side by AJAX
+            $.ajax({
+                url: "/brand/api/update",
+                type: 'POST',
+                enctype: 'multipart/form-data',
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 10000,
+                data: formData,
+                success: function(responseData) {
+                    if (responseData.responseCode == 100) {
+                        $editBrandForm.modal('hide');
+                        findBrands(1);
+                        showNotification(true, responseData.responseMsg);
+                    } else {
+                        showMsgOnField($editBrandForm.find("#editBrandName"), responseData.responseMsg);
+                    }
+                }
+            });
+        }
+    });
 });
+
+
+
+
+
+
 
 
 function findBrands(pagerNumber) {
