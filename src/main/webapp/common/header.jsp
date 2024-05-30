@@ -7,10 +7,10 @@
     <style>
         .nav-link {
             margin-right: 10px;
-        }
-        .nav-link.active {
-            background-color: #007bff;
-            color: white !important;
+            border: 1px solid #0056b3;
+            border-radius: 5px;
+            padding: 8px 12px;
+            background-color: #80bdff;
         }
         .nav-link:hover {
             background-color: #0056b3;
@@ -19,15 +19,20 @@
     </style>
 </head>
 <body>
-<div class="container mt-3">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light rounded">
-        <div class="container-fluid">
-            <div class="navbar-nav">
-                <a class="nav-link btn btn-outline-primary me-2" href="/product">Product</a>
-                <a class="nav-link btn btn-primary" href="/brand">Brand</a>
-            </div>
-        </div>
-    </nav>
-</div>
+<header>
+    <div class="container mt-4">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="/product">Product</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/brand">Brand</a>
+            </li>
+            <li class="nav-item">
+                <a href="/" id="logoutBtn" class="btn btn-danger">Logout</a>
+            </li>
+        </ul>
+    </div>
+</header>
 </body>
 </html>

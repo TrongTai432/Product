@@ -6,11 +6,13 @@
 <html>
 <head>
     <jsp:include page="../common/header.jsp" />
-    <link src="${pageContext.request.contextPath}/css/brand.css">
+    <link rel="stylesheet" href="<c:url value='/css/brand.css'/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="<c:url value='/plugins/font-awesome/css/all.min.css'/>">
+    <link href="<c:url value='/plugins/datatables/css/dataTables.bootstrap4.min.css'/>" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Brand List</title>
     <style>
@@ -23,6 +25,9 @@
             border: 1px solid #dee2e6;
             border-radius: 5px;
         }
+        .table-bordered img {
+            max-width: 45px;
+        }
 
         .pagination a.active {
             color: #fff;
@@ -34,28 +39,49 @@
             background-color: #e2e6ea;
             border-color: #dae0e5;
         }
+        .main-search {
+            display: flex;
+            align-items: center;
+        }
+        .main-search .search-brand {
+            border: 1px solid #ced4da;
+            height: 34px;
+            border-radius: 5px;
+            padding-left: 10px;
+            margin-right: 10px;
+        }
+        .main-search .search-btn {
+            border: 1px solid #ced4da;
+            height: 34px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+        .sub-header {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="sub-header">
-        <div class="float-left main-search">
-            <input class="search-brand" type="text" placeholder="Search..." />
-            <button type="submit" class="search-btn">Search</button>
-        </div>
-        <div class="float-right">
-            <button type="button" id="addBrandBtn" class="btn btn-primary">
-                Add brand
-            </button>
-
-            <a href="/" id="logoutBtn" class="btn btn-danger">Logout</a>
+    <div class="container">
+        <div class="sub-header row align-items-center">
+            <div class="col-md-4">
+                <h4 class="sub-title">Brand Management</h4>
+            </div>
+            <div class="col-md-4 main-search">
+                <input class="search-brand form-control" type="text" placeholder="Search..." />
+                <button type="submit" class="search-btn btn-primary">Search</button>
+            </div>
+            <div class="col-md-2 text-end">
+                <button type="button" id="addBrandBtn" class="btn btn-primary">Add brand</button>
+            </div>
         </div>
     </div>
+    <div class="container">
     <table class="table table-bordered" id="brandInfoTable">
         <thead>
-        <h2>Brand List</h2>
         <tr>
-            <th>Brand ID</th>
+            <th>ID</th>
             <th>Name</th>
             <th>Logo</th>
             <th>Description</th>
@@ -63,45 +89,32 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="brand" items="${brands}">
-            <tr>
-                <td>${brand.brandId}</td>
-                <td>${brand.brandName}</td>
-                <td>
-                    <img src="${brand.logo}" alt="${brand.brandName}" width="50" height="50" name="logoFiles" >
-                </td>
-                <td>${brand.description}</td>
-                <td>
-                    <button class="btn btn-primary edit-btn" data-id="${brand.brandId}" >Edit</button>
-                    <button class="btn btn-danger delete-btn" data-id="${brand.brandId}" data-name="${brand.brandName}">Delete</button>
-                </td>
-            </tr>
-        </c:forEach>
+
         </tbody>
     </table>
     <div class="pagination">
-        <c:if test="${pager.firstPage != 0}">
-            <a href="?page=1">&laquo; First</a>
-            <a href="?page=${pager.previousPage}">Previous</a>
-        </c:if>
+<%--        <c:if test="${pager.firstPage != 0}">--%>
+<%--            <a href="?page=1">&laquo; First</a>--%>
+<%--            <a href="?page=${pager.previousPage}">Previous</a>--%>
+<%--        </c:if>--%>
 
-        <c:forEach var="page" items="${pager.pageNumberList}">
-            <c:choose>
-                <c:when test="${page == pager.currentPage}">
-                    <a href="?page=${page}" class="active">${page}</a>
-                </c:when>
-                <c:otherwise>
-                    <a href="?page=${page}">${page}</a>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
+<%--        <c:forEach var="page" items="${pager.pageNumberList}">--%>
+<%--            <c:choose>--%>
+<%--                <c:when test="${page == pager.currentPage}">--%>
+<%--                    <a href="?page=${page}" class="active">${page}</a>--%>
+<%--                </c:when>--%>
+<%--                <c:otherwise>--%>
+<%--                    <a href="?page=${page}">${page}</a>--%>
+<%--                </c:otherwise>--%>
+<%--            </c:choose>--%>
+<%--        </c:forEach>--%>
 
-        <c:if test="${pager.lastPage != 0}">
-            <a href="?page=${pager.nextPage}">Next</a>
-            <a href="?page=${pager.lastPage}">Last &raquo;</a>
-        </c:if>
+<%--        <c:if test="${pager.lastPage != 0}">--%>
+<%--            <a href="?page=${pager.nextPage}">Next</a>--%>
+<%--            <a href="?page=${pager.lastPage}">Last &raquo;</a>--%>
+<%--        </c:if>--%>
     </div>
-</div>
+    </div>
 
 <!-- add brand Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -110,7 +123,7 @@
             <form id="brandInfoForm" action="/brand/api/add" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle">Add Brand</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group d-none">
@@ -132,7 +145,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" id="saveBrandBtn">Save</button>
                 </div>
             </form>
@@ -148,7 +161,7 @@
             <form id="editBrandForm">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editBrandModalLabel">Edit Brand</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
@@ -169,7 +182,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
             </form>
@@ -200,6 +213,7 @@
 
 <jsp:include page="../common/footer.jsp" />
 <script src="/js/brand.js"></script>
+<script src="/js/base.js"></script>
 </body>
 </html>
 

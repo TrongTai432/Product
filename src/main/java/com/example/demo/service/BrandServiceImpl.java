@@ -69,7 +69,7 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override
     public List<BrandEntity> getAll() {
-        return brandDAO.findAll();
+        return brandDAO.findAll(Sort.by(Sort.Direction.DESC, "brandId"));
     }
 
 

@@ -1,12 +1,38 @@
 
 $(document).ready(function () {
+    findBrands(1);
+
+    $('.pagination').on('click','.page-link', function(){
+        var pagerNumber = $(this).attr("data-index");
+        var keyword = $('.search-brand').val();
+        if ( keyword != "" ) {
+            findBrandByBrandName(keyword,pagerNumber);
+        } else {
+            findBrands(pagerNumber);
+        }
+    });
 
     // search
     $('.search-btn').on('click', function() {
         var keyword = $('.search-brand').val().toLowerCase();
-        var pagerNumber = $(this).attr("data-index");
-        findBrandByBrandName(keyword,1);
+        if (keyword === "") {
+            findBrands(1);
+        } else {
+            findBrandByBrandName(keyword, 1);
+        }
+    });
 
+    // enter
+    $('.search-brand').on('keypress', function(e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            var keyword = $(this).val().toLowerCase();
+            if (keyword === "") {
+                findBrands(1);
+            } else {
+                findBrandByBrandName(keyword, 1);
+            }
+        }
     });
 
     // Display modal to add new brand
@@ -74,11 +100,13 @@ $(document).ready(function () {
         }
     });
 
+    // Handle the click event to remove the brand
     $("#brandInfoTable").on('click', '.delete-btn', function() {
         var brandName = $(this).data("name");
         $("#deletedBrandName").text(brandName);
         $("#deleteSubmitBtn").attr("data-id", $(this).data("id"));
         $('#confirmDeleteModal').modal('show');
+
     });
 
     // Submit delete brand
@@ -96,7 +124,7 @@ $(document).ready(function () {
     });
 
     // Display modal to edit brand
-    $('.edit-btn').click(function () {
+    $("#brandInfoTable").on('click', '.edit-btn', function() {
         var brandId = $(this).data('id');
         $.ajax({
             url: '/brand/api/getBrand',
@@ -115,7 +143,7 @@ $(document).ready(function () {
 
 function findBrands(pagerNumber) {
     $.ajax({
-        url : "/brand/api/findAll/" +pagerNumber,
+        url : "/brand/api/findAll/" + pagerNumber,
         type : 'GET',
         dataType : 'json',
         contentType : "application/json",
@@ -131,8 +159,8 @@ function findBrands(pagerNumber) {
 
 function findBrandByBrandName(keyword,pageNumber) {
     $.ajax({
-        url : "/brand/api/search/" + keyword+"/"+pageNumber,
-        type : 'Get',
+        url : "/brand/api/search/" + keyword+ "/" +pageNumber,
+        type : 'GET',
         dataType : 'json',
         contentType : "application/json",
         success : function(responseData) {
@@ -167,10 +195,12 @@ function renderBrandsTable(brandList) {
             +		"<td class='text-center'><a href='" + value.logo + "' data-toggle='lightbox' data-max-width='1000'><img class='img-fluid' src='" + value.logo + "'></td>"
             +		"<td>" + value.description + "</td>"
             +		"<td class = 'action-btns'>"
-            +			"<a class='edit-btn' data-id='" + value.brandId +"'><i class='fas fa-edit'></i></a> | <a class='delete-btn' data-name='" + value.brandName + "' data-id='" + value.brandId + "'><i class='fas fa-trash-alt'></i></a>"
+            +			 "<a class='edit-btn' data-id='" + value.brandId +"'><i class='fas fa-edit'></i></a> | " +
+                         "<a class='delete-btn' data-name='" + value.brandName + "' data-id='" + value.brandId + "'><i class='fas fa-trash-alt'></i></a>"
             +		"</td>"
         "</tr>";
         $("#brandInfoTable tbody").append(rowHTML);
+        bindLightbox();
     });
 }
 function renderPagination(paginationInfo) {
@@ -186,6 +216,13 @@ function renderPagination(paginationInfo) {
         paginationInnerHtml += '<li class="page-item"><a class="page-link ' + (paginationInfo.lastPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ paginationInfo.lastPage + '">Last Page</a></li>'
         $("ul.pagination").append(paginationInnerHtml);
     }
+}
+
+function bindLightbox() {
+    $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
 }
 
 

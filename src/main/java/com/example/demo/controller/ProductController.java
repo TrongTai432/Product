@@ -36,6 +36,7 @@ public class ProductController {
         return productService.addProduct(productEntity);
     }
 
+
     @GetMapping(value = "/api/findAll/{pageNumber}")
     @ResponseBody
     public ResponseDataModel findAllWithPaper(@PathVariable("pageNumber") int pageNumber) {

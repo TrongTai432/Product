@@ -23,3 +23,18 @@ function showMsgOnField($element, message, isSuccessMsg) {
     $element.find(".form-msg").remove();
     $element.parent().append("<div class='" + className + " form-msg'>" + message + "</div>");
 }
+
+function  showModalWithCustomizedTitle($selectedModal, title) {
+    $selectedModal.find(".modal-title").text(title);
+    $selectedModal.modal('show');
+}
+
+
+
+// reset form
+function resetForm($formElement) {
+    $formElement[0].reset();
+    $formElement.find("input[type*='file']").val("");
+    $formElement.find(".error-message-invalid").remove();
+    $formElement.find("img").attr('src','');
+}

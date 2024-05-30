@@ -9,3 +9,4 @@
 <script src="${pageContext.request.contextPath}/plugins/jquery/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+
