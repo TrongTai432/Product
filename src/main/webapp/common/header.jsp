@@ -28,7 +28,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/brand">Brand</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item ms-auto">
                 <a href="/" id="logoutBtn" class="btn btn-danger">Logout</a>
             </li>
         </ul>

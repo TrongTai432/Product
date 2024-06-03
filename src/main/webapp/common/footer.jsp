@@ -9,4 +9,5 @@
 <script src="${pageContext.request.contextPath}/plugins/jquery/jquery.validate.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+<script src="<c:url value='/plugins/bootstrap/js/bootstrap-notify.min.js'/>"></script>
 

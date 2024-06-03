@@ -126,7 +126,6 @@ $(document).ready(function () {
         });
     });
 
-
     // Display modal to edit brand
     $("#brandInfoTable").on('click', '.edit-btn', function() {
         var brandId = $(this).data('id');
@@ -137,16 +136,17 @@ $(document).ready(function () {
             success: function(response) {
                 $('#editBrandId').val(response.brandId);
                 $('#editBrandName').val(response.brandName);
+                $('#editLogo').val(response.logoFiles);
                 $('#editDescription').val(response.description);
                 $('#editBrandModal').modal('show');
             }
         });
     });
 
-
+    var $editBrandForm = $('#editBrandForm');
 // Submit update brand
     $('#updateBrandBtn').on('click', function (event) {
-        var $editBrandForm = $('#editBrandForm');
+
         event.preventDefault();
         var formData = new FormData($editBrandForm[0]);
         var brandId = formData.get("brandId");
@@ -159,7 +159,7 @@ $(document).ready(function () {
                     maxlength : 50
                 },
                 logoFiles: {
-                    required: isAddAction,
+                    required: isAddAction
                 }
             },
             messages: {
@@ -188,7 +188,7 @@ $(document).ready(function () {
                 data: formData,
                 success: function(responseData) {
                     if (responseData.responseCode == 100) {
-                        $editBrandForm.modal('hide');
+                        $('#editBrandModal').modal('hide');
                         findBrands(1);
                         showNotification(true, responseData.responseMsg);
                     } else {
@@ -199,13 +199,6 @@ $(document).ready(function () {
         }
     });
 });
-
-
-
-
-
-
-
 
 function findBrands(pagerNumber) {
     $.ajax({
@@ -250,7 +243,6 @@ function totalItem(item) {
     $(".total").append(item);
 }
 
-
 function renderBrandsTable(brandList) {
     var rowHTML = "";
     $("#brandInfoTable tbody").empty();
@@ -269,6 +261,7 @@ function renderBrandsTable(brandList) {
         bindLightbox();
     });
 }
+
 function renderPagination(paginationInfo) {
     var paginationInnerHtml = "";
     if(paginationInfo.pageNumberList.length > 0){

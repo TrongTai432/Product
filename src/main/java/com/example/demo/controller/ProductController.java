@@ -19,14 +19,21 @@ import java.util.Map;
 public class ProductController {
     @Autowired
     private IProductService productService;
+    @Autowired
+    IBrandService brandService;
+//    @GetMapping
+//    public String getAllProduct(Model model){
+//        if (productService == null) {
+//            throw new IllegalStateException("productService is not properly autowired.");
+//        }
+//        List<ProductEntity> products = productService.getAll();
+//        model.addAttribute("products", products);
+//        return "product";
+//    }
 
     @GetMapping
-    public String getAllProduct(Model model){
-        if (productService == null) {
-            throw new IllegalStateException("productService is not properly autowired.");
-        }
-        List<ProductEntity> products = productService.getAll();
-        model.addAttribute("products", products);
+    public String initPage(Model model) {
+        model.addAttribute("brandList", brandService.getAll());
         return "product";
     }
 

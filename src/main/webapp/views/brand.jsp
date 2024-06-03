@@ -8,11 +8,11 @@
     <jsp:include page="../common/header.jsp" />
     <link rel="stylesheet" href="<c:url value='/css/brand.css'/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap-notify.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="<c:url value='/plugins/font-awesome/css/all.min.css'/>">
+    <script src="<c:url value='/plugins/bootstrap/js/bootstrap-notify.min.js'/>"></script>
     <link href="<c:url value='/plugins/datatables/css/dataTables.bootstrap4.min.css'/>" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Brand List</title>
@@ -155,8 +155,8 @@
                         <input type="text" class="form-control" id="editBrandName" name="brandName">
                     </div>
                     <div class="form-group">
-                        <label>Logo</label>
-                        <input type="file" class="form-control" id="editLogo" name="logo">
+                        <label for="logo">Logo <span class="required-mask">(*)</span></label>
+                        <input type="file" class="form-control" id="editLogo" name="logoFiles" accept=".jpg,.jpeg,.png,.gif" required/>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
