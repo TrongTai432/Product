@@ -9,15 +9,10 @@ $(document).ready(function() {
             list.push($(this).val());
         });
         console.log(list);
-        //$('.out ').html(list.join('\xa0\xa0'));
     });
 
-    /**
-     *  Reset page
-     */
+
     $('#resetPage').on('click', function() {
-
-
         $('input[type=checkbox]').each(function() {
             this.checked = false;
         })
@@ -28,9 +23,7 @@ $(document).ready(function() {
         findProduct(1);
     });
 
-    /**
-     *  Show more brand
-     */
+
     var num = 7;
     var showMore;
     $('.sb_dropdown').children('li').hide().each(function() {
@@ -46,15 +39,7 @@ $(document).ready(function() {
         }
     });
 
-
-
-
-
-
-
-    /**
-     *  Show pagination
-     */
+    //pagination
     $('.pagination').on('click','.page-link', function(){
         var pageNumber = $(this).attr("data-index");
         var keyword =  $(".search-product").val();
@@ -72,16 +57,11 @@ $(document).ready(function() {
     var $productInfoForm  = $('#productInfoForm');
 
 
-    /**
-     *  Show add modal
-     */
-
-
-
+    //show add modal
     $('#addProduct').on('click', function() {
         resetForm($productInfoForm);
         showModalWithCustomizedTitle($infoProductModal , "Add Product");
-        $('#logoImg img').attr('src' , '/images/image-demo.png');
+        $('#logoImg img').attr('src' , '/images/product.jpg');
         $('#productId').closest(".form-group").addClass("d-none");
         var now = new Date();
         var day = ("0" + now.getDate()).slice(-2);
@@ -90,9 +70,7 @@ $(document).ready(function() {
         $('#saleDate').val(today);
     });
 
-    /**
-     *  Show update modal
-     */
+   //show update modal
     $('#productInfoTable').on('click','.edit-btn',  function() {
         // get product info
         $.ajax({
@@ -124,9 +102,7 @@ $(document).ready(function() {
         });
     });
 
-    /**
-     *  Click the button to store the data
-     */
+    //save
     $('#saveProduct').on('click', function(event) {
         event.preventDefault();
         var formData = new FormData($productInfoForm[0]);
@@ -204,18 +180,14 @@ $(document).ready(function() {
     });
 
 
-    /**
-     *  Show delete modal
-     */
+    //show delete modal
     $('#productInfoTable').on('click' , '.delete-btn', function() {
         $("#product-name").text($(this).data("name"));
         $("#deleteBtn").attr("data-id", $(this).data("id"));
         $('#deleteModal').modal('show');
     });
 
-    /**
-     *  Click on the button to delete data
-     */
+    //delete
     $('#deleteBtn').on('click', function() {
         $.ajax({
             url : "/product/api/delete/" + $(this).attr("data-id"),
@@ -226,15 +198,12 @@ $(document).ready(function() {
                 $('#deleteModal').modal('hide');
                 showNotification(responseData.responseCode == 100, responseData.responseMsg);
                 findProduct(1);
-
             }
         });
     });
 
 
-    /**
-     *  Click on the button to search data
-     */
+  //search
     $('#searchPrice').on('click', function() {
         searchProduct(1, true, list);
     });
@@ -306,4 +275,51 @@ function renderTable(productList) {
         "</tr>";
         $("#productInfoTable tbody").append(rowHTML);
     });
+}
+
+function searchProduct(pageNumber, isClickedSearchBtn, list) {
+    var search = {
+        keyword:$(".search-product").val(),
+        priceFrom:$("#priceFrom").val(),
+        priceTo:$("#priceTo").val(),
+        list: list
+    }
+    $.ajax({
+        url: '/product/api/searchProduct/' + pageNumber,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (responseData) {
+            if(responseData.responseCode == 100) {
+                renderTable(responseData.data.productList);
+                renderPage(responseData.data.paginationInfo);
+                if(responseData.data.paginationInfo.pageNumberList.length < 2){
+                    $('.pagination').addClass("d-none");
+                }else{
+                    $('.pagination').removeClass("d-none")
+                }
+
+                totalItem(responseData.data.totalItem);
+
+
+            }
+        },
+        data: JSON.stringify(search)
+    });
+}
+
+function renderPage(pagination){
+    var paginationInnerHtml = "";
+    if(pagination.pageNumberList.length > 0){
+        $("ul.pagination").empty();
+
+        paginationInnerHtml += '<li class="page-item"><a class="page-link ' + (pagination.firstPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ pagination.firstPage + '">Firts Page</a></li>'
+        paginationInnerHtml += '<li class="page-item"><a class="page-link ' + (pagination.previousPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ pagination.previousPage + '"> < </a></li>'
+        $.each(pagination.pageNumberList, function(key, value) {
+            paginationInnerHtml += '<li class="page-item"><a class="page-link '+ (value == pagination.currentPage ? ' active' : '') +'" href="javascript:void(0)" data-index="' + value +'">' + value + '</a></li>';
+        });
+        paginationInnerHtml += '<li class="page-item"><a class="page-link ' + (pagination.nextPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ pagination.nextPage + '"> > </a></li>'
+        paginationInnerHtml += '<li class="page-item"><a class="page-link ' + (pagination.lastPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ pagination.lastPage + '">Last Page</a></li>'
+        $("ul.pagination").append(paginationInnerHtml);
+    }
 }

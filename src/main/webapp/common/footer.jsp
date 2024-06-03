@@ -10,4 +10,6 @@
 <script src="${pageContext.request.contextPath}/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
 <script src="<c:url value='/plugins/bootstrap/js/bootstrap-notify.min.js'/>"></script>
+<link rel="stylesheet" href="<c:url value='/plugins/font-awesome/css/all.min.css'/>">
+<link href="<c:url value='/plugins/datatables/css/dataTables.bootstrap4.min.css'/>" rel="stylesheet">
 

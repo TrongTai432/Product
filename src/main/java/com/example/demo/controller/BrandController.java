@@ -18,16 +18,6 @@ public class BrandController {
     @Autowired
     IBrandService brandService;
 
-   // @GetMapping
-//    public String getAllBrands(@RequestParam(value = "page", defaultValue = "1") int page, Model model){
-//        int totalPageCount = brandService.getTotalPageCount(page);
-//        int pageSize = 5;
-//        List<BrandEntity> brands = brandService.getAll();
-//        model.addAttribute("brands", brands);
-//        PagerModel pager = new PagerModel(page, totalPageCount);
-//        model.addAttribute("pager", pager);
-//        return "brand";
-//    }
    @GetMapping
    public String initPage(Model model) {
        return "brand";

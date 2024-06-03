@@ -138,6 +138,7 @@ $(document).ready(function () {
                 $('#editBrandName').val(response.brandName);
                 $('#editLogo').val(response.logoFiles);
                 $('#editDescription').val(response.description);
+
                 $('#editBrandModal').modal('show');
             }
         });
@@ -258,7 +259,7 @@ function renderBrandsTable(brandList) {
             +		"</td>"
         "</tr>";
         $("#brandInfoTable tbody").append(rowHTML);
-        bindLightbox();
+
     });
 }
 
@@ -277,12 +278,7 @@ function renderPagination(paginationInfo) {
     }
 }
 
-function bindLightbox() {
-    $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-        event.preventDefault();
-        $(this).ekkoLightbox();
-    });
-}
+
 
 
 

@@ -21,15 +21,6 @@ public class ProductController {
     private IProductService productService;
     @Autowired
     IBrandService brandService;
-//    @GetMapping
-//    public String getAllProduct(Model model){
-//        if (productService == null) {
-//            throw new IllegalStateException("productService is not properly autowired.");
-//        }
-//        List<ProductEntity> products = productService.getAll();
-//        model.addAttribute("products", products);
-//        return "product";
-//    }
 
     @GetMapping
     public String initPage(Model model) {

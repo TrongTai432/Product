@@ -18,3 +18,51 @@
     background-color: #e2e6ea;
     border-color: #dae0e5;
 }
+
+div.error-message-invalid, div.error, label.error-message-invalid, label.error {
+    background-color: #f8d7da;
+    position: relative;
+    padding: .375rem .75rem;
+    margin-top: .5rem;
+    border: 1px solid #f5c6cb !important;
+    color: #dc3545 !important;
+    width: 100%;
+    border-radius: .25rem;
+}
+
+.table-bordered img {
+    max-width: 45px;
+}
+.pagination {
+    margin-bottom: 30px;
+}
+.pagination a {
+    display: block;
+    color: #000000;
+    float: left;
+    margin: 0px 7px 0px 0;
+    padding: 6px 14px 9px;
+    text-decoration: none;
+    transition: background-color .3s;
+    min-width: 36px;
+}
+.pagination a.active {
+    color: white;
+    background-color: #000000;
+}
+.pagination a.disabled {
+    pointer-events: none;
+    color: #ccc;
+}
+.delete-btn , .edit-btn{
+    cursor: pointer;
+}
+.brand-item ul li img{
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    max-height: 70%;
+    margin: auto;
+}

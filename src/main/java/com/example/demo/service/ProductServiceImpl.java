@@ -8,6 +8,7 @@ import com.example.demo.model.PagerModel;
 import com.example.demo.model.ResponseDataModel;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ import java.util.Map;
 @Service
 @Transactional
 public class ProductServiceImpl implements IProductService{
-
+    @Value("${parent.folder.images.product}")
     private String productImageFolderPath;
     @Autowired
     private ProductDAO productDao;

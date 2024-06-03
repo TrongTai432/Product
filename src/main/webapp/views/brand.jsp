@@ -7,13 +7,11 @@
 <head>
     <jsp:include page="../common/header.jsp" />
     <link rel="stylesheet" href="<c:url value='/css/brand.css'/>">
+    <link rel="stylesheet" href="<c:url value='/css/base.css'/>">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="<c:url value='/plugins/font-awesome/css/all.min.css'/>">
-    <script src="<c:url value='/plugins/bootstrap/js/bootstrap-notify.min.js'/>"></script>
-    <link href="<c:url value='/plugins/datatables/css/dataTables.bootstrap4.min.css'/>" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Brand List</title>
     <style>
@@ -74,7 +72,7 @@
                 <button type="submit" class="search-btn btn-primary">Search</button>
             </div>
             <div class="col-md-2 text-end">
-                <button type="button" id="addBrandBtn" class="btn btn-primary">Add brand</button>
+                <button type="button" id="addBrandBtn" class="btn btn-success"><i class="fa fa-plus-circle"></i>Add brand</button>
             </div>
         </div>
     </div>
@@ -93,9 +91,17 @@
 
         </tbody>
     </table>
-    <div class="pagination">
+        <div class="d-flex justify-content-center">
+            <div class="total-items">
+                <span>Total Items: </span>
+            </div>&nbsp;&nbsp;
+            <div class="total">
 
-    </div>
+            </div>
+            &nbsp;&nbsp;
+            <ul class="pagination">
+            </ul>
+        </div>
     </div>
 
 <!-- add brand Modal -->
@@ -120,6 +126,7 @@
                         <label for="logo">Logo <span class="required-mask">(*)</span></label>
                         <input type="file" class="form-control upload-image" name="logoFiles" accept=".jpg,.jpeg,.png,.gif" required/>
                         <input type="hidden" class="old-img" id="logo" name="logo">
+
                     </div>
                     <div class="form-group">
                         <label for="description">Description</label>
@@ -156,7 +163,9 @@
                     </div>
                     <div class="form-group">
                         <label for="logo">Logo <span class="required-mask">(*)</span></label>
-                        <input type="file" class="form-control" id="editLogo" name="logoFiles" accept=".jpg,.jpeg,.png,.gif" required/>
+                        <!-- Image element to display the current logo -->
+                        <img id="currentLogo" src="#" alt="Current Logo" class="img-fluid mb-2" style="max-height: 150px; display: none;">
+                        <input type="file" class="form-control upload-image" id="editLogo" name="logoFiles" accept=".jpg,.jpeg,.png,.gif" required/>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
