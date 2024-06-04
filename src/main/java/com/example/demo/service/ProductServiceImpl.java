@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.constant.Constants;
 import com.example.demo.constant.FileHelper;
 import com.example.demo.dao.ProductDAO;
+import com.example.demo.dao.ProductJpaSpecs;
 import com.example.demo.entity.ProductEntity;
 import com.example.demo.model.PagerModel;
 import com.example.demo.model.ResponseDataModel;
@@ -16,7 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,10 +143,8 @@ public class ProductServiceImpl implements IProductService{
                 responseCode = Constants.RESULT_CD_SUCCESS;
                 responseMsg = "Product is deleted successfully";
             }
-
         } catch (Exception e) {
             responseMsg = "Error when delete product";
-
         }
         return new ResponseDataModel(responseCode, responseMsg);
     }
@@ -154,7 +152,23 @@ public class ProductServiceImpl implements IProductService{
 
     @Override
     public ResponseDataModel searchByNameAndPrice(Map<String, Object> search, int pageNumber) {
-       return null;
+        int responseCode = Constants.RESULT_CD_FAIL;
+        String responseMsg = StringUtils.EMPTY;
+
+        Map<String, Object> rpMap = new HashMap<>();
+        try {
+            Sort sort = Sort.by(Sort.Direction.ASC,"productName");
+            Pageable pageable = PageRequest.of(pageNumber - 1, Constants.PAGE_SIZE, sort);
+            Page<ProductEntity> pages = productDao.findAll(ProductJpaSpecs.getSearchProductBySpec(search),pageable);
+            rpMap.put("productList", pages.getContent());
+            rpMap.put("paginationInfo", new PagerModel(pageNumber, pages.getTotalPages()));
+            rpMap.put("totalItem", pages.getTotalElements());
+            responseCode = Constants.RESULT_CD_SUCCESS;
+            responseMsg = "ResultSet has " +  pages.getTotalElements()  + " products";
+        } catch (Exception e) {
+            responseMsg = e.getMessage();
+        }
+        return new ResponseDataModel(responseCode, responseMsg, rpMap);
 
     }
 

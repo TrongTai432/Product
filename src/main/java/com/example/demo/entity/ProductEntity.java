@@ -48,7 +48,7 @@ public class ProductEntity {
     }
 
     public ProductEntity() {
-        // TODO Auto-generated constructor stub
+
     }
 
     public Long getProductId() {

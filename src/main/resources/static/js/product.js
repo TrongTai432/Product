@@ -11,7 +11,7 @@ $(document).ready(function() {
         console.log(list);
     });
 
-
+    //reset page
     $('#resetPage').on('click', function() {
         $('input[type=checkbox]').each(function() {
             this.checked = false;
@@ -82,7 +82,7 @@ $(document).ready(function() {
                 if(responseData.responseCode == 100){
                     var productInfo = responseData.data;
                     resetForm($productInfoForm);
-                    showModalWithCustomizedTitle($infoProductModal, "Edit-Product");
+                    showModalWithCustomizedTitle($infoProductModal, "Edit Product");
 
                     $('#productId').val(productInfo.productId);
                     $('#productName').val(productInfo.productName);
@@ -92,7 +92,7 @@ $(document).ready(function() {
                     $('#brandId').val(productInfo.brandEntity.brandId);
                     $('#description').val(productInfo.description);
                     if(productInfo.image == null || productInfo.image == ""){
-                        productInfo.image = '/images/image-demo.png';
+                        productInfo.image = '/images/product.jpg';
                     }
                     $("#logoImg img").attr("src", productInfo.image);
                     $("#image").val(productInfo.image);
@@ -109,9 +109,8 @@ $(document).ready(function() {
         var productId = formData.get("productId");
         var isAdd = productId == undefined || productId == "";
 
-
         ($productInfoForm).validate({
-            ignone: [],
+            ignore: [],
             rules: {
                 productName: {
                     required: true,
@@ -160,7 +159,7 @@ $(document).ready(function() {
             $.ajax({
                 url : "/product/api/" +(isAdd ? "add" : "update"),
                 type : "POST",
-                ectype : "multipart/form-data",
+                enctype : "multipart/form-data",
                 processData : false,
                 contentType : false,
                 cache: false,
@@ -182,7 +181,8 @@ $(document).ready(function() {
 
     //show delete modal
     $('#productInfoTable').on('click' , '.delete-btn', function() {
-        $("#product-name").text($(this).data("name"));
+        var productName = $(this).data("name");
+        $("#deletedBrandName").text(productName);
         $("#deleteBtn").attr("data-id", $(this).data("id"));
         $('#deleteModal').modal('show');
     });
@@ -210,8 +210,6 @@ $(document).ready(function() {
 
 });
 
-
-
 function findProduct(pageNumber) {
     $.ajax({
         url : "/product/api/findAll/" + pageNumber,
@@ -224,6 +222,35 @@ function findProduct(pageNumber) {
                 totalItem(responseData.data.totalItem);
             }
         }
+    });
+}
+
+function searchProduct(pageNumber, isClickedSearchBtn, list) {
+    var search = {
+        keyword:$(".search-product").val(),
+        priceFrom:$("#priceFrom").val(),
+        priceTo:$("#priceTo").val(),
+        list: list
+    };
+
+    $.ajax({
+        url: '/product/api/searchProduct/' + pageNumber,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (responseData) {
+            if(responseData.responseCode == 100) {
+                renderTable(responseData.data.productList);
+                renderPage(responseData.data.paginationInfo);
+                if(responseData.data.paginationInfo.pageNumberList.length < 2){
+                    $('.pagination').addClass("d-none");
+                }else{
+                    $('.pagination').removeClass("d-none")
+                }
+                totalItem(responseData.data.totalItem);
+            }
+        },
+        data: JSON.stringify(search)
     });
 }
 
@@ -277,43 +304,13 @@ function renderTable(productList) {
     });
 }
 
-function searchProduct(pageNumber, isClickedSearchBtn, list) {
-    var search = {
-        keyword:$(".search-product").val(),
-        priceFrom:$("#priceFrom").val(),
-        priceTo:$("#priceTo").val(),
-        list: list
-    }
-    $.ajax({
-        url: '/product/api/searchProduct/' + pageNumber,
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (responseData) {
-            if(responseData.responseCode == 100) {
-                renderTable(responseData.data.productList);
-                renderPage(responseData.data.paginationInfo);
-                if(responseData.data.paginationInfo.pageNumberList.length < 2){
-                    $('.pagination').addClass("d-none");
-                }else{
-                    $('.pagination').removeClass("d-none")
-                }
-
-                totalItem(responseData.data.totalItem);
-
-
-            }
-        },
-        data: JSON.stringify(search)
-    });
-}
 
 function renderPage(pagination){
     var paginationInnerHtml = "";
     if(pagination.pageNumberList.length > 0){
         $("ul.pagination").empty();
 
-        paginationInnerHtml += '<li class="page-item"><a class="page-link ' + (pagination.firstPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ pagination.firstPage + '">Firts Page</a></li>'
+        paginationInnerHtml += '<li class="page-item"><a class="page-link ' + (pagination.firstPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ pagination.firstPage + '">First Page</a></li>'
         paginationInnerHtml += '<li class="page-item"><a class="page-link ' + (pagination.previousPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ pagination.previousPage + '"> < </a></li>'
         $.each(pagination.pageNumberList, function(key, value) {
             paginationInnerHtml += '<li class="page-item"><a class="page-link '+ (value == pagination.currentPage ? ' active' : '') +'" href="javascript:void(0)" data-index="' + value +'">' + value + '</a></li>';
