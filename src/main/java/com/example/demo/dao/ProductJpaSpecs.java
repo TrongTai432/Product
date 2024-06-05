@@ -16,11 +16,8 @@ import org.springframework.util.CollectionUtils;
 
 
 public class ProductJpaSpecs {
-
     public static Specification<ProductEntity> getSearchProductBySpec(Map<String, Object> searchMap){
-
         return new Specification<ProductEntity>() {
-
             public static final long serialVersion = 1L;
 
             @Override
@@ -38,7 +35,6 @@ public class ProductJpaSpecs {
                     List<String> brandIds = (List<String>) searchMap.get("list");
                     Join<ProductEntity, BrandEntity> brandRoot = root.join("brandEntity");
                     if(StringUtils.isNotEmpty(keyword)) {
-                        // brandRoot = root.join("brandEntity");
                         predicates.add(criteriaBuilder.or(
                                 criteriaBuilder.like(root.get("productName"), "%" + keyword + "%"),
                                 criteriaBuilder.like(brandRoot.get("brandName"), "%" + keyword + "%")

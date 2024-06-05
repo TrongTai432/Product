@@ -13,30 +13,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Product List</title>
-    <style>
-        .preview-image-upload {
-            text-align: center;
-            margin-bottom: 5px;
-        }
-        .preview-image-upload img {
-            max-width: 29%;
-            margin-top: -27px;
-        }
-        .label-logo {
-            cursor: pointer;
-        }
-
-        .label-logo:before {
-            content: " ";
-            display: block;
-            border-radius: 50%;
-            text-align: center;
-        }
-
-        :checked + .label-logo:before {
-            background-color: grey;
-        }
-    </style>
 </head>
 <body>
 <div class="container">
@@ -81,28 +57,28 @@
                 <a class="btn btn-dark reset-btn" id="resetPage">Reset</a>
             </div>
         </div>
-        <div class="brand-item">
-            <ul class="sb_dropdown"  >
-                <c:forEach items="${brandList}" var="brand">
-                    <li class="logo-item" id="check-img">
-                        <input class="check" type="checkbox" id="${brand.brandId}" value="${brand.brandId}" name="brand.brandName" >
-                        <label for="${brand.brandId}"  class="label-logo">
-                            <img id="img-brand" src="${brand.logo}">
-                        </label>
-                    </li>
-                </c:forEach>
+<%--        <div class="brand-item">--%>
+<%--            <ul class="sb_dropdown"  >--%>
+<%--                <c:forEach items="${brandList}" var="brand">--%>
+<%--                    <li class="logo-item" id="check-img">--%>
+<%--                        <input class="check" type="checkbox" id="${brand.brandId}" value="${brand.brandId}" name="brand.brandName" >--%>
+<%--                        <label for="${brand.brandId}"  class="label-logo">--%>
+<%--                            <img id="img-brand" src="${brand.logo}">--%>
+<%--                        </label>--%>
+<%--                    </li>--%>
+<%--                </c:forEach>--%>
 
-            </ul>
-            <div id="output">
-                <a class="out" href="#"></a>
-            </div>
-        </div>
+<%--            </ul>--%>
+<%--            <div id="output">--%>
+<%--                <a class="out" href="#"></a>--%>
+<%--            </div>--%>
+<%--        </div>--%>
     </div>
 
     <table class="table table-bordered" id="productInfoTable">
         <thead>
         <tr>
-            <th>Product ID</th>
+<%--            <th>Product ID</th>--%>
             <th>Name</th>
             <th>Quantity</th>
             <th class="price">Price</th>

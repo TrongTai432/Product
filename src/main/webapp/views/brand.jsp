@@ -14,52 +14,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Brand List</title>
-    <style>
-        .pagination a {
-            margin: 0 4px;
-            padding: 6px 12px;
-            text-decoration: none;
-            color: #007bff;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-        }
-        .table-bordered img {
-            max-width: 45px;
-        }
-
-        .pagination a.active {
-            color: #fff;
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-
-        .pagination a:hover {
-            background-color: #e2e6ea;
-            border-color: #dae0e5;
-        }
-        .main-search {
-            display: flex;
-            align-items: center;
-        }
-        .main-search .search-brand {
-            border: 1px solid #ced4da;
-            height: 34px;
-            border-radius: 5px;
-            padding-left: 10px;
-            margin-right: 10px;
-        }
-        .main-search .search-btn {
-            border: 1px solid #ced4da;
-            height: 34px;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-        }
-        .sub-header {
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -70,6 +24,7 @@
             <div class="col-md-4 main-search">
                 <input class="search-brand form-control" type="text" placeholder="Search..." />
                 <button type="submit" class="search-btn btn-primary">Search</button>
+                <a class="btn btn-dark reset-btn" id="resetPage">Reset</a>
             </div>
             <div class="col-md-2 text-end">
                 <button type="button" id="addBrandBtn" class="btn btn-success"><i class="fa fa-plus-circle"></i>Add brand</button>
@@ -80,7 +35,7 @@
     <table class="table table-bordered" id="brandInfoTable">
         <thead>
         <tr>
-            <th>ID</th>
+<%--            <th>Brand ID</th>--%>
             <th>Name</th>
             <th>Logo</th>
             <th>Description</th>

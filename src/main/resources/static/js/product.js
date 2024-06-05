@@ -31,6 +31,7 @@ $(document).ready(function() {
             $(this).show();
         }
     });
+
     $('.sb_dropdown').append('<li class="show-more"><a id="showMore">Show more</a></li>');
     $('#showMore').on('click', function() {
         if( showMore = $(this).parent('li')){
@@ -55,7 +56,6 @@ $(document).ready(function() {
 
     var $infoProductModal = $('#infoProductModal');
     var $productInfoForm  = $('#productInfoForm');
-
 
     //show add modal
     $('#addProduct').on('click', function() {
@@ -133,19 +133,19 @@ $(document).ready(function() {
             },
             messages: {
                 productName: {
-                    required: "Please input Product Name",
+                    required: "Product Name can't empty",
                     maxlength: "The Product Name must be less than 50 characters",
                 },
                 quantity : {
-                    required: "Please input Quantity",
+                    required: "Quantity can't empty",
                     number : "Please enter a valid number.",
                 },
                 price : {
-                    required: "Please input Price",
+                    required: "Price can't empty",
                     number : "Please enter a valid Number.",
                 },
                 saleDate : {
-                    required: "Please input Sale Date",
+                    required: "Sale Date can't empty",
                 },
                 imageFiles: {
                     required: "Please upload Product Image",
@@ -153,7 +153,6 @@ $(document).ready(function() {
             },
             errorElement: "div",
             errorClass: "error-message-invalid"
-
         });
         if($productInfoForm.valid()){
             $.ajax({
@@ -287,7 +286,7 @@ function renderTable(productList) {
     $("#productInfoTable tbody").empty();
     $.each(productList, function(key, value) {
         rowHTML = "<tr>"
-            +	"<td>" + value.productId + "</td>"
+            // +	"<td>" + value.productId + "</td>"
             +	"<td >" + value.productName + "</td>"
             +	"<td class='text-center'>" + value.quantity  +  "</td>"
             +	"<td class='text-center'>" + format.format(value.price)     +  "</td>"

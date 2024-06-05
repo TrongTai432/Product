@@ -59,7 +59,7 @@ public class ProductServiceImpl implements IProductService{
 
             }
         } catch (Exception e) {
-            responseMsg = "Error when adding brand";
+            responseMsg = "Error when adding product";
 
         }
         return new ResponseDataModel(responseCode, responseMsg);

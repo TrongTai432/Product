@@ -12,6 +12,15 @@ $(document).ready(function () {
         }
     });
 
+    //reset page
+    $('#resetPage').on('click', function() {
+        $('input[type=checkbox]').each(function() {
+            this.checked = false;
+        })
+        $('#search-brand').val('');
+        findBrands(1);
+    });
+
     // search
     $('.search-btn').on('click', function() {
         var keyword = $('.search-brand').val().toLowerCase();
@@ -34,6 +43,7 @@ $(document).ready(function () {
             }
         }
     });
+
     var $brandInfoForm = $('#brandInfoForm');
     // Display modal to add new brand
     $('#addBrandBtn').click(function () {
@@ -79,7 +89,6 @@ $(document).ready(function () {
         });
 
         if ($brandInfoForm.valid()) {
-            // POST data to server-side by AJAX
             $.ajax({
                 url: "/brand/api/add",
                 type: 'POST',
@@ -145,7 +154,7 @@ $(document).ready(function () {
     });
 
     var $editBrandForm = $('#editBrandForm');
-// Submit update brand
+        // Submit update brand
     $('#updateBrandBtn').on('click', function (event) {
 
         event.preventDefault();
@@ -177,7 +186,6 @@ $(document).ready(function () {
         });
 
         if ($editBrandForm.valid()) {
-            // POST data to server-side by AJAX
             $.ajax({
                 url: "/brand/api/update",
                 type: 'POST',
@@ -249,7 +257,7 @@ function renderBrandsTable(brandList) {
     $("#brandInfoTable tbody").empty();
     $.each(brandList, function(key, value) {
         rowHTML = "<tr>"
-            +		"<td>" + value.brandId + "</td>"
+            // +		"<td>" + value.brandId + "</td>"
             + 		"<td>" + value.brandName +"</td>"
             +		"<td class='text-center'><a href='" + value.logo + "' data-toggle='lightbox' data-max-width='1000'><img class='img-fluid' src='" + value.logo + "'></td>"
             +		"<td>" + value.description + "</td>"
@@ -267,7 +275,7 @@ function renderPagination(paginationInfo) {
     var paginationInnerHtml = "";
     if(paginationInfo.pageNumberList.length > 0){
         $("ul.pagination").empty();
-        paginationInnerHtml += '<li class="page-item"><a class="page-link' + (paginationInfo.firstPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ paginationInfo.firstPage + '">Firts Page</a></li>'
+        paginationInnerHtml += '<li class="page-item"><a class="page-link' + (paginationInfo.firstPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ paginationInfo.firstPage + '">First Page</a></li>'
         paginationInnerHtml += '<li class="page-item"><a class="page-link' + (paginationInfo.previousPage == 0 ? ' disabled' : '') + '" href="javascript:void(0)" data-index="'+ paginationInfo.previousPage + '"> < </a></li>'
         $.each(paginationInfo.pageNumberList, function(key, value) {
             paginationInnerHtml += '<li class="page-item"><a class="page-link '+ (value == paginationInfo.currentPage ? 'active' : '') +'" href="javascript:void(0)" data-index="' + value +'">' + value + '</a></li>';

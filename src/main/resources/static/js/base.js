@@ -30,7 +30,6 @@ $(document).ready(function(){
     });
 
 
-
     //Open image in full size
     $(document).on('click', '[data-toggle="lightbox"]', function (event) {
         event.preventDefault();
@@ -39,8 +38,6 @@ $(document).ready(function(){
         });
     });
 });
-
-
 
 
 function showNotification(isSuccess, message) {
@@ -69,11 +66,10 @@ function showMsgOnField($element, message, isSuccessMsg) {
     $element.parent().append("<div class='" + className + " form-msg'>" + message + "</div>");
 }
 
-function  showModalWithCustomizedTitle($selectedModal, title) {
+function showModalWithCustomizedTitle($selectedModal, title) {
     $selectedModal.find(".modal-title").text(title);
     $selectedModal.modal('show');
 }
-
 
 
 // reset form
@@ -81,5 +77,5 @@ function resetForm($formElement) {
     $formElement[0].reset();
     $formElement.find("input[type*='file']").val("");
     $formElement.find(".error-message-invalid").remove();
-    $formElement.find("img").attr('src','');
+    $formElement.find("img").attr('src', '');
 }

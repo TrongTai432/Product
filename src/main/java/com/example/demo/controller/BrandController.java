@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.constant.Constants;
 import com.example.demo.entity.BrandEntity;
 import com.example.demo.model.PagerModel;
 import com.example.demo.model.ResponseDataModel;
@@ -22,11 +21,13 @@ public class BrandController {
    public String initPage(Model model) {
        return "brand";
    }
+
     @GetMapping("/api/findAll/{pageNumber}")
     @ResponseBody
     public ResponseDataModel findAllWithPagerApi(@PathVariable("pageNumber") int pageNumber) {
         return brandService.findAllWithPagerApi(pageNumber);
     }
+
     @GetMapping("/api/findAll")
     @ResponseBody
     public ResponseDataModel findBrandByIdApi(@RequestParam("id") Long brandId) {
@@ -49,6 +50,7 @@ public class BrandController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PostMapping(value ="/api/update")
     @ResponseBody
     public ResponseDataModel updateApi(@ModelAttribute BrandEntity brandEntity) {
