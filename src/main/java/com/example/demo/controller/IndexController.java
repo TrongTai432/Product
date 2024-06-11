@@ -15,6 +15,4 @@ public class IndexController {
     public String loginAction() {
         return "redirect:/product";
     }
-
-
 }
