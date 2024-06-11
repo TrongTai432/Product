@@ -61,7 +61,7 @@ $(document).ready(function() {
     $('#addProduct').on('click', function() {
         resetForm($productInfoForm);
         showModalWithCustomizedTitle($infoProductModal , "Add Product");
-        $('#logoImg img').attr('src' , '/images/product.jpg');
+        $('#logoImg img').attr('src' , '/images/image.jpg');
         $('#productId').closest(".form-group").addClass("d-none");
         var now = new Date();
         var day = ("0" + now.getDate()).slice(-2);

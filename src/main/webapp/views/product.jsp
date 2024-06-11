@@ -77,16 +77,16 @@
 
     <table class="table table-bordered" id="productInfoTable">
         <thead>
-        <tr>
+        <tr class="text-center">
 <%--            <th>Product ID</th>--%>
-            <th>Name</th>
-            <th>Quantity</th>
-            <th class="price">Price</th>
-            <th class="sale-date">Sale Date</th>
-            <th>Brand Name</th>
-            <th>Image</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col" class="price">Price</th>
+            <th scope="col" class="sale-date">Sale Date</th>
+            <th scope="col">Brand Name</th>
+            <th scope="col">Image</th>
+            <th scope="col">Description</th>
+            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -154,7 +154,7 @@
                             <div class="form-group col-md-6">
                                 <label>Image <span class="required-mask">(*)</span></label>
                                 <div class="preview-image-upload" id="logoImg">
-                                    <img src="<c:url value='/images/product.jpg'/>" alt="image">
+                                    <img src="<c:url value='/images/image.jpg'/>" alt="image">
                                 </div>
                                 <input type="file" class="form-control upload-image" name="imageFiles" accept="image/*"/>
                                 <input type="hidden" class="old-img" id="image" name="image" />

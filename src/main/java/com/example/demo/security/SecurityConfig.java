@@ -4,7 +4,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 @Configuration
-@Order(99)
+@Order(value = 99)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
@@ -12,7 +12,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // User Permission
         http.authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/images/**","/plugins/**", "/*", "/**/*", "/**/**/*").permitAll()
-                .and() // Disable CRSF check
+                .and()
                 .csrf().disable();
     }
 }

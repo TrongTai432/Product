@@ -22,11 +22,11 @@
                 <h4 class="sub-title">Brand Management</h4>
             </div>
             <div class="col-md-4 main-search">
-                <input class="search-brand form-control" type="text" placeholder="Search..." />
+                <input class="search-brand form-control" id="search-brand" type="text" placeholder="Search..." />
                 <button type="submit" class="search-btn btn-primary">Search</button>
                 <a class="btn btn-dark reset-btn" id="resetPage">Reset</a>
             </div>
-            <div class="col-md-2 text-end">
+            <div class="col-md-4 text-end">
                 <button type="button" id="addBrandBtn" class="btn btn-success"><i class="fa fa-plus-circle"></i>Add brand</button>
             </div>
         </div>
@@ -34,12 +34,12 @@
     <div class="container">
     <table class="table table-bordered" id="brandInfoTable">
         <thead>
-        <tr>
+        <tr class="text-center">
 <%--            <th>Brand ID</th>--%>
-            <th>Name</th>
-            <th>Logo</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th scope="col">Name</th>
+            <th scope="col">Logo</th>
+            <th scope="col">Description</th>
+            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>

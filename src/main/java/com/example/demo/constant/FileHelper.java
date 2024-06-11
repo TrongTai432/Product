@@ -36,7 +36,6 @@ public class FileHelper {
         }
 
         if (StringUtils.isNotEmpty(oldFilePath)) {
-
             deleteFile(rootFolderPath, oldFilePath);
         }
 
