@@ -5,9 +5,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping(value = { "/" })
 public class IndexController {
     @RequestMapping(value = "/")
     public String home() {
+        return "redirect:/login";
+    }
+    @RequestMapping(value = "/login")
+    public String login() {
         return "login";
     }
 
