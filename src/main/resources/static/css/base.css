@@ -64,6 +64,11 @@ header .nav-link {
     border: 1px solid;
 }
 
+.nav-link:hover {
+    background-color: #0056b3;
+    color: white !important;
+}
+
 header .nav-link.active {
     background-color: black;
     color: #fff;

@@ -12,7 +12,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -29,9 +28,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         UserEntity loginUser = userService.login(username, password);
 
-        if (loginUser != null) {
+        if (loginUser != null && loginUser.getUsername().equals(username) && loginUser.getPassword().equals(password)) {
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
+            grantedAuthorities.add(new SimpleGrantedAuthority(loginUser.getRole()));
             return new UsernamePasswordAuthenticationToken(username, password, grantedAuthorities);
         } else {
             throw new BadCredentialsException("Invalid username or password");
@@ -40,7 +39,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return authentication.equals(UsernamePasswordAuthenticationToken.class);
+        return UsernamePasswordAuthenticationToken.class.equals(authentication);
     }
 }
 
