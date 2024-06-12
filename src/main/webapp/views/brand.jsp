@@ -35,7 +35,6 @@
     <table class="table table-bordered" id="brandInfoTable">
         <thead>
         <tr class="text-center">
-<%--            <th>Brand ID</th>--%>
             <th scope="col">Name</th>
             <th scope="col">Logo</th>
             <th scope="col">Description</th>

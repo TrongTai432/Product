@@ -78,7 +78,6 @@
     <table class="table table-bordered" id="productInfoTable">
         <thead>
         <tr class="text-center">
-<%--            <th>Product ID</th>--%>
             <th scope="col">Name</th>
             <th scope="col">Quantity</th>
             <th scope="col" class="price">Price</th>

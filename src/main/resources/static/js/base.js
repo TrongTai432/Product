@@ -23,7 +23,7 @@ $(document).ready(function(){
             if (oldImagePath) {
                 fileUrl = oldImagePath;
             } else {
-                fileUrl = "/images/image-demo.png";
+                fileUrl = "/images/image.jpg";
             }
         }
         $parent.find('.preview-image-upload img').attr('src', fileUrl);
