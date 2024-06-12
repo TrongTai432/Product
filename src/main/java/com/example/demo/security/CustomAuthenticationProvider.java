@@ -17,20 +17,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
+
     @Autowired
-    IUserService userService;
+    private IUserService userService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
+
         UserEntity loginUser = userService.login(username, password);
 
-        if (loginUser != null && loginUser.getUsername().equals(username) && loginUser.getPassword().equals(password)) {
-            List<GrantedAuthority> grantedAuths = new ArrayList<>();
-            grantedAuths.add(new SimpleGrantedAuthority("ADMIN"));
-            return new UsernamePasswordAuthenticationToken(username, password, grantedAuths);
+        if (loginUser != null) {
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+            grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
+            return new UsernamePasswordAuthenticationToken(username, password, grantedAuthorities);
         } else {
             throw new BadCredentialsException("Invalid username or password");
         }
@@ -38,6 +40,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return UsernamePasswordAuthenticationToken.class.equals(authentication);
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }
+

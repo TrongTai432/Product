@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,14 +24,14 @@ public class SecurityConfig {
     private CustomAuthenticationProvider customAuthenticationProvider;
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user = User.withUsername("user")
+        UserDetails user = User.withUsername("admin2")
                 .password(passwordEncoder().encode("password"))
                 .roles("USER")
                 .build();
 
-        UserDetails admin = User.withUsername("admin")
+        UserDetails admin = User.withUsername("admin1")
                 .password(passwordEncoder().encode("password"))
-                .roles("ADMIN", "USER")
+                .roles("ADMIN")
                 .build();
 
         return new InMemoryUserDetailsManager(user, admin);
