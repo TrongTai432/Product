@@ -63,10 +63,8 @@
     </div>
 </div>
 </body>
-
 <jsp:include page="../common/footer.jsp" />
 <script src="/js/login.js"></script>
 <script src="/js/product.js"></script>
 <script src="/js/base.js"></script>
-
 </html>

@@ -81,6 +81,7 @@ textarea.form-control {
 .search-btn {
 
 }
+
 .search {
     border-radius: 5px;
     padding-top: 14px;
@@ -88,13 +89,13 @@ textarea.form-control {
     margin-bottom: 20px;
 
 }
+
 .search-form {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #f5f9e8;
     color: #fff;
-
 }
 
 .logo-item {

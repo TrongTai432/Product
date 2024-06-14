@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="<c:url value='/css/base.css'/>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
@@ -20,7 +21,7 @@
                 <a class="nav-link" href="/brand">Brand</a>
             </li>
             <li class="nav-item ms-auto">
-                <a href="/" id="logoutBtn" class="btn btn-danger">Logout</a>
+                <a href="/logout" id="logoutBtn" class="btn btn-danger">Logout</a>
             </li>
         </ul>
     </div>

@@ -1,8 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.BrandEntity;
 import com.example.demo.entity.ProductEntity;
-import com.example.demo.model.PagerModel;
 import com.example.demo.model.ResponseDataModel;
 import com.example.demo.service.IBrandService;
 import com.example.demo.service.IProductService;
@@ -10,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Map;
 
 @Controller

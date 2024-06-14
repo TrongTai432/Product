@@ -4,7 +4,6 @@ package com.example.demo.model;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PagerModel {
 
     public static final int DISABLE_PAGING_FLAG = 0;
@@ -41,14 +40,6 @@ public class PagerModel {
         this.pageNumberList = getPageNumberList(currentPage, totalPage, NUM_OF_MAX_DISPLAY_PAGE);
     }
 
-    /**
-     * Get List Page Number
-     *
-     * @param currentPage
-     * @param totalPage
-     * @param maxPageDisplay
-     * @return List Page Number
-     */
     private static List<Integer> getPageNumberList(int currentPage, int totalPage, int maxPageDisplay) {
 
         List<Integer> pageNumberList = new ArrayList<Integer>();

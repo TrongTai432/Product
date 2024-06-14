@@ -5,7 +5,6 @@ import com.example.demo.constant.Constants;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 

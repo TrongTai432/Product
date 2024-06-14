@@ -14,7 +14,6 @@ table {
     border-collapse: collapse;
 }
 
-
 .table-bordered img {
     max-width: 45px;
 }
@@ -23,6 +22,7 @@ table {
     display: flex;
     align-items: center;
 }
+
 .main-search .search-brand {
     border: 1px solid #ced4da;
     height: 34px;
@@ -30,6 +30,7 @@ table {
     padding-left: 10px;
     margin-right: 10px;
 }
+
 .main-search .search-btn {
     border: 1px solid #ced4da;
     height: 34px;
@@ -37,6 +38,7 @@ table {
     background-color: #007bff;
     color: white;
 }
+
 .sub-header {
     margin-top: 20px;
 }

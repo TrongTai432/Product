@@ -71,7 +71,6 @@ function showModalWithCustomizedTitle($selectedModal, title) {
     $selectedModal.modal('show');
 }
 
-
 // reset form
 function resetForm($formElement) {
     $formElement[0].reset();
