@@ -56,11 +56,9 @@ public class ProductServiceImpl implements IProductService{
                 productDao.saveAndFlush(productEntity);
                 responseCode = Constants.RESULT_CD_SUCCESS;
                 responseMsg = "Product is added successfully";
-
             }
         } catch (Exception e) {
             responseMsg = "Error when adding product";
-
         }
         return new ResponseDataModel(responseCode, responseMsg);
     }
@@ -80,7 +78,6 @@ public class ProductServiceImpl implements IProductService{
             responseCode = Constants.RESULT_CD_SUCCESS;
         } catch (Exception e) {
             responseMsg = e.getMessage();
-
         }
         return new ResponseDataModel(responseCode, responseMsg,rpMap);
     }
@@ -97,9 +94,7 @@ public class ProductServiceImpl implements IProductService{
             }
         } catch (Exception e) {
             responseMsg = ("error");
-
         }
-
         return new ResponseDataModel(responseCode, responseMsg, productEntity);
     }
 
@@ -171,8 +166,4 @@ public class ProductServiceImpl implements IProductService{
         return new ResponseDataModel(responseCode, responseMsg, rpMap);
 
     }
-
-
-
-
 }

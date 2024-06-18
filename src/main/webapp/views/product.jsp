@@ -55,9 +55,9 @@
         </div>
     </div>
 
-    <table class="table table-bordered" id="productInfoTable">
-        <thead>
-        <tr class="text-center">
+    <table class="table table-hover table-bordered text-center" id="productInfoTable">
+        <thead class="table-dark">
+        <tr>
             <th scope="col">Name</th>
             <th scope="col">Quantity</th>
             <th scope="col" class="price">Price</th>
@@ -108,11 +108,11 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>Quantity <span class="required-mask">(*)</span></label>
-                                <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Quantity"/>
+                                <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Quantity"/>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Price <span class="required-mask">(*)</span></label>
-                                <input type="text" class="form-control" id="price" name="price" placeholder="Price"/>
+                                <input type="number" class="form-control" id="price" name="price" placeholder="Price"/>
                             </div>
                         </div>
                         <div class="form-row">

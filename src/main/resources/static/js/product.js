@@ -286,7 +286,6 @@ function renderTable(productList) {
     $("#productInfoTable tbody").empty();
     $.each(productList, function(key, value) {
         rowHTML = "<tr>"
-            // +	"<td>" + value.productId + "</td>"
             +	"<td >" + value.productName + "</td>"
             +	"<td class='text-center'>" + value.quantity  +  "</td>"
             +	"<td class='text-center'>" + format.format(value.price)     +  "</td>"
