@@ -40,6 +40,14 @@ $(document).ready(function() {
         }
     });
 
+    document.getElementById('productInfoForm').addEventListener('submit', function(event) {
+        const priceInput = document.getElementById('price');
+        if (priceInput.value <= 0) {
+            event.preventDefault();
+            alert('Price must be greater than 0');
+        }
+    });
+
     //pagination
     $('.pagination').on('click','.page-link', function(){
         var pageNumber = $(this).attr("data-index");
@@ -92,7 +100,7 @@ $(document).ready(function() {
                     $('#brandId').val(productInfo.brandEntity.brandId);
                     $('#description').val(productInfo.description);
                     if(productInfo.image == null || productInfo.image == ""){
-                        productInfo.image = '/images/product.jpg';
+                        productInfo.image = '/images/image.jpg';
                     }
                     $("#logoImg img").attr("src", productInfo.image);
                     $("#image").val(productInfo.image);
@@ -133,19 +141,19 @@ $(document).ready(function() {
             },
             messages: {
                 productName: {
-                    required: "Product Name can't empty",
+                    required: "Please input Product Name",
                     maxlength: "The Product Name must be less than 50 characters",
                 },
                 quantity : {
-                    required: "Quantity can't empty",
+                    required: " Please input Quantity",
                     number : "Please enter a valid number.",
                 },
                 price : {
-                    required: "Price can't empty",
+                    required: " Please input Price ",
                     number : "Please enter a valid Number.",
                 },
                 saleDate : {
-                    required: "Sale Date can't empty",
+                    required: "Please input Sale Date",
                 },
                 imageFiles: {
                     required: "Please upload Product Image",
@@ -181,7 +189,7 @@ $(document).ready(function() {
     //show delete modal
     $('#productInfoTable').on('click' , '.delete-btn', function() {
         var productName = $(this).data("name");
-        $("#deletedBrandName").text(productName);
+        $("#deletedProductName").text(productName);
         $("#deleteBtn").attr("data-id", $(this).data("id"));
         $('#deleteModal').modal('show');
     });

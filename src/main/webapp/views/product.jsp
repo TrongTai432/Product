@@ -112,7 +112,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>Price <span class="required-mask">(*)</span></label>
-                                <input type="number" class="form-control" id="price" name="price" placeholder="Price"/>
+                                <input type="number" class="form-control"  id="price" name="price" placeholder="Price" min="1" required/>
                             </div>
                         </div>
                         <div class="form-row">
@@ -140,7 +140,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="description">Description</label>
-                                <textarea name="description" id="description" cols="30" rows="3" class="form-control" placeholder="Description"></textarea>
+                                <textarea name="description" id="description" cols="30" rows="3" class="form-control" placeholder="Description" style="height: 82px;"></textarea>
                             </div>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Do you want to delete <b class="product-name"></b>?</p>
+                    <p>Do you want to delete <b id="deletedProductName"></b>?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

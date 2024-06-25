@@ -14,5 +14,3 @@
 <link href="<c:url value='/plugins/datatables/css/dataTables.bootstrap4.min.css'/>" rel="stylesheet">
 
 
-
-

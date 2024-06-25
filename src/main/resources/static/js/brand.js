@@ -77,7 +77,7 @@ $(document).ready(function () {
     $('#addModal').on('click', function() {
         resetForm($brandInfoForm);
         showModalWithCustomizedTitle($brandInfoModal,"Add Brand");
-        $('#logoImg img').attr('src' , '/images/image-demo.png');
+        $('#logoImg img').attr('src' , '/images/image.jpg');
         $('#brandId').closest(".form-group").addClass("d-none");
     });
 
@@ -92,7 +92,7 @@ $(document).ready(function () {
         var isAddAction = brandId == undefined || brandId == "";
         //var isValidForm = formValidate($footballTeamForm, _self.getValidationInfo(isAddAction));
         $brandInfoForm.validate({
-            ignone: [],
+            ignore: [],
             rules: {
                 brandName: {
                     required: true,

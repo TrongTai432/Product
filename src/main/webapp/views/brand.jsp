@@ -23,7 +23,7 @@
                 <a class="btn btn-dark reset-btn" id="resetPage">Reset</a>
             </div>
             <div class="col-md-4 text-end">
-                <button type="button" id="addBrandBtn" class="btn btn-success"><i class="fa fa-plus-circle"></i>Add brand</button>
+                <button type="button" id="addModal" class="btn btn-success"><i class="fa fa-plus-circle"></i> Add Brand </button>
             </div>
         </div>
     </div>

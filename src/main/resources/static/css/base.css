@@ -53,8 +53,12 @@ div.error-message-invalid, div.error, label.error-message-invalid, label.error {
     max-width: 45px;
 }
 
+.navbar-dark .navbar-nav .nav-link {
+    color: black;
+}
+
 header .nav-link {
-    background-color: #fff;
+    background-color: darkseagreen;
     margin-left: 8px;
     margin-top: 4px;
     width: 100px;
@@ -66,18 +70,18 @@ header .nav-link {
 
 header .nav-link:hover {
     background-color: #0056b3;
-    color: white !important;
+    color: black !important;
 }
 
 header .nav-link.active {
     background-color: black;
-    color: #fff;
+    color: blue;
 }
 
 .sub-header {
     height: 46px;
     padding: 3px 3px;
-    color: #fff;
+    color: black;
     margin-bottom: 17px;
     border-radius: 5px;
 }
